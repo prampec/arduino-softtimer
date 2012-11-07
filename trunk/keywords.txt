@@ -1,0 +1,26 @@
+# Datatypes (KEYWORD1)
+# Methods and Functions (KEYWORD2)
+# Constants (LITERAL1)
+
+BlinkTask	KEYWORD1
+start	KEYWORD2
+stop	KEYWORD2
+
+Debouncer	KEYWORD1
+
+SoftPwmTask	KEYWORD1
+analogWrite	KEYWORD2
+
+SoftTimer	KEYWORD1
+add	KEYWORD2
+remove	KEYWORD2
+
+Task	KEYWORD1
+
+TonePlayer	KEYWORD1
+play	KEYWORD2
+
+Heartbeat	KEYWORD1
+
+DelayRun    KEYWORD1
+startDelayed    KEYWORD2
