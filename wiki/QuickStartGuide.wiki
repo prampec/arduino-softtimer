@@ -1,3 +1,5 @@
+#summary Quick-Start guide
+
 =Quick-Start guide=
 
 1. Include SoftTimer in your program.
