@@ -1,0 +1,230 @@
+#summary SoftTimer introduction, documentation starts here.
+
+= Introduction =
+
+SoftTimer is an Arduino library.
+
+SoftTimer enable a higher level Arduino programing, jet easy to use, and lightweight.
+You often face with the problem that you need to do multiply task in the same time. In SoftTimer manner programmer creates Tasks that runs periodically.
+
+When you use SoftTimer you do not implement the "loop" function of the Arduino. All your code will run event driven, all processes running asynchronous, no more blocking code (like sleep) is needed.
+
+I also try to add some usefully tools to use SoftTimer out of the box (like blinker, pwm, debouncer, etc.)
+
+
+=Quick-Start guide=
+
+1. Include SoftTimer in your program.
+{{{
+#include <SoftTimer.h>
+}}}
+
+2. You need to create a Task with parameters of period (ms) and the callback function. E.g. callBack1 is to be called in every 2000 milliseconds:
+{{{
+Task t1(2000, callBack1);
+
+void callBack1(Task* me) {
+  // -- my code comes here
+}
+}}}
+
+3. Register your task to the SoftTimer (Timer Manager).
+{{{
+void setup() {
+  SoftTimer.add(&t1);
+}
+}}}
+
+4. You are finished. You may add more tasks, or use some bundled task implementations.
+
+Full code:
+{{{
+#include <SoftTimer.h>
+
+Task t1(2000, callBack1);
+Task t2(1111, callBack2);
+
+void setup() {
+  pinMode(13, OUTPUT);
+  SoftTimer.add(&t1);
+  SoftTimer.add(&t2);
+}
+
+void callBack1(Task* me) {
+  digitalWrite(13, HIGH);
+}
+void callBack2(Task* me) {
+  digitalWrite(13, LOW);
+}
+}}}
+
+
+=Why use SoftTimer?=
+
+You can add multitasking like functionalities for your code. For example you can blink a led while waiting for an input, or generate warning tones that does not block the running.
+If you are facing with a more complex problem, you can organize your code in program tasks. You do not have to care about the timing of these tasks, while the Task Manager does this job for you. This way you can create simplified codes, that is easy to manage.
+
+SoftTimer is a well designed object oriented solution, it is fun to work with.
+
+SoftTimer has a small footprint, so using it will not mean a big memory penalty.
+
+
+
+=How does it work?=
+
+
+SoftTimer class is a Timer Manager that constantly scans the registered task if it is time to run it. If so (launch start time is passed) the callback is launched. No matter how long the callback is running, the next run will be scheduled according to the previous start time. The period of starting is defined at the Task. The period of the task may be changed if necessary.
+
+Note that SoftTimer does not run tasks in the same time. The next task can be run after the currently running task is finished. When a callback runs longer than its period, the timing may fail. The tasks will be checked for run in the order of registration. You can register multiply tasks with a period of zero (0), the tasks will run after each other.
+If you add only one task with a period value zero (0) it will act like original Arduino setup-loop methods.
+
+{{{
+#include <SoftTimer.h>
+
+Task t1(0, myLoop);
+
+void setup() {
+  SoftTimer.add(&t1);
+  // -- Put your setup code here, to run once.
+}
+
+void myLoop(Task* me) {
+  // -- Put your main code here, to run repeatedly.
+}
+}}}
+
+You can register (add) or remove tasks any time.
+
+SoftTimer works on millisecond basis.
+
+
+=Detailed description of the provided features=
+
+
+==BlinkTask==
+
+
+Every physical computing project starts with a blinking of a led.
+You often need to have an indicator that shows the state of your program.
+
+BlinkTask works in two mode:
+ * Perpetual mode - Blinks forever.
+ * Count mode - Blinks for an amount of occasion.
+
+Perpetual mode has two kinds:
+ * On-Off repetition - Repeat on and off states.
+ * After a count of "on" times suspend for some time.
+
+BlinkTask can work with on level of HIGH (default) or LOW.
+
+Use start() function to register the task in the Timer Manager, so start blinking.
+
+{{{
+#include <SoftTimer.h>
+#include <BlinkTask.h>
+
+#define LED_PIN 13
+
+// -- On for 200ms off for 100ms, repeat it 2 times, sleep for 2000 ms and than start again.
+BlinkTask heartbeat(LED_PIN, 200, 100, 2, 2000);
+
+void setup() {
+  heartbeat.start();
+}
+}}}
+
+
+
+==TonePlayer==
+
+
+Tone player plays a melody on a specified output pin using the tone() and noTone() Arduino functions. You can specify the melody in quite tricky way, see the header file for details.
+
+{{{
+#include <SoftTimer.h>
+#include <TonePlayer.h>
+
+#define BEEPER_PIN  10
+
+TonePlayer tonePlayer(BEEPER_PIN, 200); // -- Tone manager
+
+void setup(void)
+{
+  tonePlayer.play("c1g1c1g1j2j2c1g1c1g1j2j2o1n1l1j1h2l2_2j1h1g1e1c2c2");
+}
+}}}
+
+
+
+
+==SoftPwmTask==
+
+With this task you can add PWM functionality for pins that did not have hardware PWM.
+
+{{{
+#include <SoftTimer.h>
+#include <SoftPwmTask.h>
+
+#define OUT_PIN  13
+
+// -- Set up PWM to the out pin.
+SoftPwmTask pwm(OUT_PIN);
+
+void setup(void)
+{
+  // -- Register the task in the timer manager.
+  SoftTimer.add(&pwm);
+  
+  // -- Writes a value of 128. That means output will "dimmed" half way. 
+  pwm.analogWrite(128);
+}
+}}}
+
+
+
+
+==Debouncer==
+
+
+The debouncer task recommends to use the PciManager to manage the pin change interrupts. However you may handle interrupts manually.
+After creating the debouncer task, you do not need to register it to the Timer Manager.
+If you are using the PciManager, you only have to register the debouncer to the PciManager.
+If you would like to handle PCI manually, you need make the pciHandleInterrupt() function to be called on pin change.
+Debouncer will call your "onPressed" callback function when the button has a sable pressed state, and the "onReleased" on the end of the press. The "onReleased" callback also receive the total time passed on the pressing state.
+You can use this debouncer both on Normally Opened and on Normally Closed circuits.
+
+{{{
+// -- Pin change interrupt
+#include <PciManager.h>
+#include <SoftTimer.h>
+#include <Debouncer.h>
+
+#define INPUT_PIN 3
+
+Debouncer debouncer(INPUT_PIN, MODE_CLOSE_ON_PUSH, onPressed, onReleased);
+
+
+void setup() {
+  Serial.begin(9800);
+  PciManager.registerListener(INPUT_PIN, &debouncer);
+  Serial.println("Ready.");
+}
+
+void onPressed() {
+  Serial.println("pressed");
+}
+void onReleased(unsigned long pressTimespan) {
+  Serial.print(pressTimespan);
+  Serial.println(" - released");
+}
+}}}
+
+
+
+
+
+==Heartbeat==
+
+
+Heartbeat is a special blinker. It is intended to use a visual indicator for your project more easy.
+Heartbeat creates a custom timed BlinkTask and starts is immediately.
