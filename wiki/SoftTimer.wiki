@@ -10,3 +10,8 @@ You often face with the problem that you need to do multiply task in the same ti
 When you use SoftTimer you do not implement the "loop" function of the Arduino. All your code will run event driven, all processes running asynchronous, no more blocking code (like sleep) is needed.
 
 I also try to add some usefully tools to use SoftTimer out of the box (like blinker, pwm, debouncer, etc.)
+
+
+
+= Documentation content=
+ * [QuickStartGuide Quick-start guide]
