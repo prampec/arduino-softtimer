@@ -15,3 +15,5 @@ I also try to add some usefully tools to use SoftTimer out of the box (like blin
 
 = Documentation content=
  * [QuickStartGuide Quick-start guide]
+ * [WhyHow Why use SoftTimer and how does it work? ]
+ * [Features Detailed description of the provided features.]
