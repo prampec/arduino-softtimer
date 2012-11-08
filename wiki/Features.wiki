@@ -3,7 +3,7 @@
 =Detailed description of the provided features=
 
 
-==BlinkTask==
+==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/BlinkTask.h BlinkTask]==
 
 
 Every physical computing project starts with a blinking of a led.
@@ -37,7 +37,7 @@ void setup() {
 
 
 
-==TonePlayer==
+==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/TonePlayer.h TonePlayer]==
 
 
 Tone player plays a melody on a specified output pin using the tone() and noTone() Arduino functions. You can specify the melody in quite tricky way, see [http://code.google.com/p/arduino-softtimer/source/browse/trunk/TonePlayer.h TonePlayer.h] header file for details.
@@ -60,7 +60,7 @@ Note, that you must take care to wait for the melody to finish before playing th
 
 
 
-==SoftPwmTask==
+==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/SoftPwmTask.h SoftPwmTask]==
 
 With this task you can add PWM functionality for pins that did not have hardware PWM.
 
@@ -84,7 +84,7 @@ void setup(void)
 }}}
 
 
-== DelayRun ==
+==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/DelayRun.h DelayRun]==
 
 This class is to launch something after an amount of period. You can even specify a "followedBy" task, which will be run after this one has finished.
 
@@ -128,7 +128,7 @@ boolean turnOn(Task* task) {
 
 
 
-==Debouncer==
+==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/Debouncer.h Debouncer]==
 
 
 The debouncer task recommends to use the PciManager to manage the pin change interrupts. However you may handle interrupts manually.
@@ -168,7 +168,7 @@ void onReleased(unsigned long pressTimespan) {
 
 
 
-==Heartbeat==
+==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/Heartbeat.h Heartbeat]==
 
 
 Heartbeat is a special blinker. It is intended to use a visual indicator for your project more easy.
