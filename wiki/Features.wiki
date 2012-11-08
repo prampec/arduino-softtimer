@@ -40,7 +40,7 @@ void setup() {
 ==TonePlayer==
 
 
-Tone player plays a melody on a specified output pin using the tone() and noTone() Arduino functions. You can specify the melody in quite tricky way, see the header file for details.
+Tone player plays a melody on a specified output pin using the tone() and noTone() Arduino functions. You can specify the melody in quite tricky way, see [http://code.google.com/p/arduino-softtimer/source/browse/trunk/TonePlayer.h TonePlayer.h] header file for details.
 
 {{{
 #include <SoftTimer.h>
@@ -56,6 +56,7 @@ void setup(void)
 }
 }}}
 
+Note, that you must take care to wait for the melody to finish before playing the next melody. Otherwise the next play will abort the previous melody. You may find the DelayRun task interesting.
 
 
 
@@ -82,6 +83,48 @@ void setup(void)
 }
 }}}
 
+
+== DelayRun ==
+
+This class is to launch something after an amount of period. You can even specify a "followedBy" task, which will be run after this one has finished.
+
+{{{
+#include <SoftTimer.h>
+#include <DelayRun.h>
+
+#define OUT_PIN 13
+
+// -- This task will turn off the LED after 1 second.
+DelayRun offTask(1000, turnOff);
+// -- This task will turn on the LED after 2 seconds.
+// -- After the onTask we loop the offTask.
+DelayRun onTask(2000, turnOn, &offTask);
+
+
+void setup() {
+  // -- We close the loop, so after offTask the onTask will start.
+  offTask.followedBy = &onTask;
+
+  pinMode(OUT_PIN, OUTPUT);
+  
+  // -- Turn on the LED;
+  digitalWrite(OUT_PIN, HIGH);
+  
+  // -- Start the offTask to take effect after 1 second.
+  offTask.startDelayed();
+  
+}
+
+boolean turnOff(Task* task) {
+  digitalWrite(OUT_PIN, LOW);
+  return true; // -- Return true to enable the "followedBy" task.
+}
+boolean turnOn(Task* task) {
+  digitalWrite(OUT_PIN, HIGH);
+  return true; // -- Return true to enable the "followedBy" task.
+}
+
+}}}
 
 
 
