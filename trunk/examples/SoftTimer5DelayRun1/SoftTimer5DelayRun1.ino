@@ -1,5 +1,3 @@
-// -- Pin change interrupt
-#include <PciManager.h>
 #include <SoftTimer.h>
 #include <DelayRun.h>
 

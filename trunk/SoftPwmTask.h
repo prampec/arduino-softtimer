@@ -47,7 +47,7 @@ class SoftPwmTask : public Task
     /**
      * The "always on" level of the PWM. The default is 255.
      */
-	  byte upperLimit;
+    byte upperLimit;
 	  
   private:
     int _outPin;
