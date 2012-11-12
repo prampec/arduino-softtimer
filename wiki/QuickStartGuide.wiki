@@ -29,19 +29,31 @@ Full code:
 {{{
 #include <SoftTimer.h>
 
-Task t1(2000, callBack1);
-Task t2(1111, callBack2);
+// -- taskOn will be launched on every 2 seconds.
+Task taskOn(2000, turnOn);
+// -- taskOff will be launched on every 1111 milliseconds.
+Task taskOff(1111, turnOff);
 
 void setup() {
+  // -- Mark pin 13 as an output pin.
   pinMode(13, OUTPUT);
-  SoftTimer.add(&t1);
-  SoftTimer.add(&t2);
+
+  // -- Register the tasks to the timer manager. Both tasks will start immediately.
+  SoftTimer.add(&taskOn);
+  SoftTimer.add(&taskOff);
 }
 
-void callBack1(Task* me) {
+/**
+ * Turn ON Arduino's LED on pin 13.
+ */
+void turnOn(Task* me) {
   digitalWrite(13, HIGH);
 }
-void callBack2(Task* me) {
+
+/**
+ * Turn OFF Arduino's LED on pin 13.
+ */
+void turnOff(Task* me) {
   digitalWrite(13, LOW);
 }
 }}}
