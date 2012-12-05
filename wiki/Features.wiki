@@ -133,10 +133,15 @@ boolean turnOn(Task* task) {
 
 The debouncer task recommends to use the PciManager to manage the pin change interrupts. However you may handle interrupts manually.
 After creating the debouncer task, you do not need to register it to the Timer Manager.
+
 If you are using the PciManager, you only have to register the debouncer to the PciManager.
+
 If you would like to handle PCI manually, you need make the pciHandleInterrupt() function to be called on pin change.
+
 Debouncer will call your "onPressed" callback function when the button has a sable pressed state, and the "onReleased" on the end of the press. The "onReleased" callback also receive the total time passed on the pressing state.
+
 You can use this debouncer both on Normally Opened and on Normally Closed circuits.
+
 See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/Debouncer.h Debouncer.h] header file for details.
 
 {{{
@@ -173,5 +178,7 @@ void onReleased(unsigned long pressTimespan) {
 
 
 Heartbeat is a special blinker. It is intended to use a visual indicator for your project more easy.
+
 Heartbeat creates a custom timed BlinkTask and starts is immediately.
+
 See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/Heartbeat.h Heartbeat.h] header file for details.
