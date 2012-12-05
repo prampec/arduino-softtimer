@@ -19,7 +19,7 @@ Perpetual mode has two kinds:
 
 BlinkTask can work with on level of HIGH (default) or LOW.
 
-Use start() function to register the task in the Timer Manager, so start blinking.
+Use start() function to register the task in the Timer Manager, so start blinking. See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/BlinkTask.h BlinkTask.h] header file for details.
 
 {{{
 #include <SoftTimer.h>
@@ -62,7 +62,7 @@ Note, that you must take care to wait for the melody to finish before playing th
 
 ==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/SoftPwmTask.h SoftPwmTask]==
 
-With this task you can add PWM functionality for pins that did not have hardware PWM.
+With this task you can add PWM functionality for pins that did not have hardware PWM. See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/SoftPwmTask.h SoftPwmTask.h] header file for details.
 
 {{{
 #include <SoftTimer.h>
@@ -86,7 +86,7 @@ void setup(void)
 
 ==[http://code.google.com/p/arduino-softtimer/source/browse/trunk/DelayRun.h DelayRun]==
 
-This class is to launch something after an amount of period. You can even specify a "followedBy" task, which will be run after this one has finished.
+This class is to launch something after an amount of period. You can even specify a "followedBy" task, which will be run after this one has finished. See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/DelayRun.h DelayRun.h] header file for details.
 
 {{{
 #include <SoftTimer.h>
@@ -137,6 +137,7 @@ If you are using the PciManager, you only have to register the debouncer to the 
 If you would like to handle PCI manually, you need make the pciHandleInterrupt() function to be called on pin change.
 Debouncer will call your "onPressed" callback function when the button has a sable pressed state, and the "onReleased" on the end of the press. The "onReleased" callback also receive the total time passed on the pressing state.
 You can use this debouncer both on Normally Opened and on Normally Closed circuits.
+See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/Debouncer.h Debouncer.h] header file for details.
 
 {{{
 // -- Pin change interrupt
@@ -173,3 +174,4 @@ void onReleased(unsigned long pressTimespan) {
 
 Heartbeat is a special blinker. It is intended to use a visual indicator for your project more easy.
 Heartbeat creates a custom timed BlinkTask and starts is immediately.
+See [http://code.google.com/p/arduino-softtimer/source/browse/trunk/Heartbeat.h Heartbeat.h] header file for details.
