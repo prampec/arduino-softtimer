@@ -164,9 +164,9 @@ void setup() {
 void onPressed() {
   Serial.println("pressed");
 }
-void onReleased(unsigned long pressTimespan) {
-  Serial.print(pressTimespan);
-  Serial.println(" - released");
+void onReleased(unsigned long pressTimespanMs) {
+  Serial.print("Released after (Ms): ");
+  Serial.println(pressTimespanMs);
 }
 }}}
 
