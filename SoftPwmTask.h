@@ -34,7 +34,7 @@ class SoftPwmTask : public Task
 {
   public:
     /**
-     * We like to do pwn on the given pin.
+     * We would like to do pwn on the given pin.
      */
     SoftPwmTask(int pin);
     
@@ -43,6 +43,11 @@ class SoftPwmTask : public Task
      *  value - The duty cycle: between 0 (always off (LOW)) and upperLimit (always on (HIGH)).
      */
     void analogWrite(byte value);
+    
+    /**
+     * Turns the output to low.
+     */
+    void off();
     
     /**
      * The "always on" level of the PWM. The default is 255.

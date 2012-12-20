@@ -45,6 +45,9 @@ void Debouncer::pciHandleInterrupt(byte vect) {
     // -- Test pin level, probably more pins are used by this interrupt.
     volatile int val = digitalRead(this->_pin);
     if(val == oppositeLevel) {
+      if(this->_state == STATE_OFF) {
+        this->_pressStart = millis(); // -- Save the first time to the start of this task.
+      }
       // -- After pin change we have the opposite level, lets start the bouncing timespan.
       this->_state += 1;
       this->startDelayed();
@@ -59,7 +62,6 @@ boolean Debouncer::step(Task* task) {
     if(val == debouncer->_onLevel) {
     
       // -- Still pressing.
-      debouncer->_pressStart = debouncer->lastCallTime; // -- Save the first time to the start of this task.
       debouncer->_state = STATE_ON;
       
       // -- Call the callback.
@@ -93,5 +95,5 @@ boolean Debouncer::step(Task* task) {
 }
 
 boolean Debouncer::setDebounceDelayMs(unsigned long debounceDelayMs) {
-  this->period = debounceDelayMs;
+  this->setPeriodMs(debounceDelayMs);
 }

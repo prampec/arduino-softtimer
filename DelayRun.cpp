@@ -40,7 +40,7 @@ DelayRun::DelayRun(unsigned long delayMs, boolean (*callback)(Task* task), Delay
 
 void DelayRun::startDelayed() {
   this->_state = STATE_STARTING;
-  this->period = 0;
+  this->setPeriodMs(0);
   SoftTimer.add(this);
 }
 
@@ -48,7 +48,7 @@ void DelayRun::step(Task* task) {
   DelayRun* dr = (DelayRun*)task;
   if(dr->_state == STATE_STARTING) {
     dr->_state = STATE_ON_DELAY;
-    dr->period = dr->delayMs;
+    dr->setPeriodMs(dr->delayMs);
     return; // -- Do not remove me from Timer Manager.
   } else if(dr->_state == STATE_ON_DELAY) {
 

@@ -39,7 +39,7 @@ void TonePlayer::play(String tones) {
   this->_tones = tones;
 
   SoftTimer.remove(this);
-  this->period = 0;
+  this->setPeriodMs(0);
   this->_playing = true;
   this->_pos = 0;
   SoftTimer.add(this);
@@ -52,7 +52,7 @@ void TonePlayer::step(Task* task) {
   if(tp->_playing) {
     tp->_playing = false;
     noTone(tp->_outPin);
-    tp->period = tp->period / 20;
+    tp->setPeriodMs(tp->_baseLength / 20);
     return;
   }
 
@@ -65,7 +65,7 @@ void TonePlayer::step(Task* task) {
 
   // -- calculate length
   char cLength = tp->_tones[tp->_pos+1];
-  tp->period = (unsigned long)(cLength-'0') * tp->_baseLength;
+  tp->setPeriodMs((unsigned long)(cLength-'0') * tp->_baseLength);
 
   // -- calculate tone
   char cPitch = tp->_tones[tp->_pos];
