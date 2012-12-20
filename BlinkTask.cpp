@@ -60,7 +60,7 @@ BlinkTask::BlinkTask(byte outPin, unsigned long onMs, unsigned long offMs, byte 
 void BlinkTask::start() {
   this->_state = STATE_OFF;
   this->_counter = 0;
-  this->period = 0;
+  this->setPeriodMs(0);
   SoftTimer.add(this);
 }
 
@@ -85,7 +85,7 @@ void BlinkTask::stepState(Task* task) {
     }
     bt->_counter += 1;
     bt->_state = STATE_OFF;
-    bt->period = bt->offMs;
+    bt->setPeriodMs(bt->offMs);
   }
   else {
     // -- state == OFF or WAIT
@@ -96,7 +96,7 @@ void BlinkTask::stepState(Task* task) {
       *bt->_portRegister &= ~bt->_bitMask;
     }
     bt->_state = STATE_ON;
-    bt->period = bt->onMs;
+    bt->setPeriodMs(bt->onMs);
   }
   if((bt->count > 0) && (bt->_counter >= bt->count)) {
     // -- Count was defined, and we reached it.
@@ -105,7 +105,7 @@ void BlinkTask::stepState(Task* task) {
     if(bt->delayMs > 0) {
       // -- delay was defined.
       bt->_state = STATE_WAIT;
-      bt->period = bt->delayMs;
+      bt->setPeriodMs(bt->delayMs);
     } else {
       bt->stop();
     }

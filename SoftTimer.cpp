@@ -61,7 +61,7 @@ void SoftTimerClass::add(Task* task) {
     
   }
   
-  task->lastCallTime = millis() - task->period; // -- Start immediately after registering.
+  task->lastCallTimeMicros = micros() - task->periodMicros; // -- Start immediately after registering.
   task->nextTask = NULL;
 }
 
@@ -105,14 +105,14 @@ void SoftTimerClass::run() {
  * Test a task and call the callback if its period was passed since last call.
  */
 void SoftTimerClass::testAndCall(Task* task) {
-  unsigned long now = millis();
-  unsigned long calc = task->lastCallTime + task->period;
+  unsigned long now = micros();
+  unsigned long calc = task->lastCallTimeMicros + task->periodMicros;
   if(
     ((now >= calc) && (
-      (calc >= task->lastCallTime) // -- Nothing was overflown.
-      || (task->lastCallTime > now) // -- Both timer and interval-end overflows
+      (calc >= task->lastCallTimeMicros) // -- Nothing was overflown.
+      || (task->lastCallTimeMicros > now) // -- Both timer and interval-end overflows
       ))
-    || ((now < task->lastCallTime) && (task->lastCallTime <= calc))) // -- timer overflows, but interval-end does not
+    || ((now < task->lastCallTimeMicros) && (task->lastCallTimeMicros <= calc))) // -- timer overflows, but interval-end does not
   {
     task->callback(task);
     task->lastCallTimeMicros = now;

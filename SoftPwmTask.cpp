@@ -34,6 +34,7 @@ SoftPwmTask::SoftPwmTask(int pin) : Task(0, &(SoftPwmTask::step))
   _counter = 0;
   upperLimit = 255;
   pinMode(_outPin, OUTPUT);
+  this->periodMicros = 30;
 
   _bitMask = digitalPinToBitMask(pin);
   _portRegister = portOutputRegister(digitalPinToPort(pin));
@@ -43,6 +44,10 @@ SoftPwmTask::SoftPwmTask(int pin) : Task(0, &(SoftPwmTask::step))
 void SoftPwmTask::analogWrite(byte value) {
   this->_value = value;
 }
+
+void SoftPwmTask::off() {
+   *this->_portRegister &= ~this->_bitMask;
+ }
 
 void SoftPwmTask::step(Task* task)
 {
@@ -56,7 +61,7 @@ void SoftPwmTask::step(Task* task)
     spt->_counter = 0;
   }
   else {
-    if(spt->_counter == spt->_value) {
+    if(spt->_counter >= spt->_value) {
       // -- Reached the value level.
       // -- Set to LOW.
       *spt->_portRegister &= ~spt->_bitMask;
