@@ -41,6 +41,7 @@ class DelayRun : public Task
      * Setup a delayed task.
      *  delayMs - The callback will be launched after this amount of milliseconds was passed.
      *    A value zero (0) may also have sense, when you only want to chain tasks.
+     *    Do not add values greater then 4,294,967, which is about 71 minutes!
      *  callback - The function to call after the specified time-span. Optional, may be NULL.
      *    The return value of the callback controls behavior of the "followedBy" option.
      *  followedBy - If the followedBy was specified, than it will be started when this was finished.
@@ -56,7 +57,10 @@ class DelayRun : public Task
     void startDelayed();
 
 
-    /** The time to sleep the task before launching the callback. */
+    /**
+     * The time to sleep the task before launching the callback.
+     * Do not set values greater then 4,294,967, which is about 71 minutes!
+     */
     unsigned long delayMs;
     /** The task should be started after this one was finished. */
     DelayRun* followedBy;

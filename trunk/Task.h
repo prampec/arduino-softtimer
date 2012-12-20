@@ -35,20 +35,27 @@ class Task
   public:
     /**
      * Construct a task with defining a period and a callback handler function.
-	 *  period - Call the task in every X milliseconds.
-	 *  callback - Is a static function reference, the function will be called each time. The callback function need to
-	 * have one argument, which is the currently running task.
+     *  periodMs - Call the task in every X milliseconds. Do not add values greater then 4,294,967, which is about 71 minutes!
+     *  callback - Is a static function reference, the function will be called each time. The callback function need to
+     * have one argument, which is the currently running task.
      */
-    Task(unsigned long period, void (*callback)(Task* me));
+    Task(unsigned long periodMs, void (*callback)(Task* me));
+    
+    /**
+     * The timeslot in milliseconds the handler should be called.
+     * Do not add values greater then 4,294,967, which is about 71 minutes!
+     */
+    void setPeriodMs(unsigned long periodMs);
 
     /**
      * The timeslot in milliseconds the handler should be called. If the value is near 1 the handler will be called in every loop.
      */
-    unsigned long period;
+    unsigned long periodMicros;
+    
     /**
-     * The timeslot in milliseconds the handler should be called repeatedly. You can reset the task by setting this value to millis().
+     * The last call (start) time of the task. You can reset the task by setting this value to micros().
      */
-    volatile unsigned long lastCallTime;
+    volatile unsigned long lastCallTimeMicros;
     
     /**
      * The function that will be called when the period time was passed since the lastCallTime. This member is for internal use only.
