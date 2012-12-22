@@ -1,0 +1,11 @@
+#summary ChangeLog for SoftTimer library.
+
+= Changelog =
+
+== v1.1 ==
+
+  * An ugly bug was found: In some cases task was stopped when timer was overflown.
+
+== v1.0 ==
+
+  * Initial release.
