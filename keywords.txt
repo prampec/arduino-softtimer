@@ -24,3 +24,12 @@ Heartbeat	KEYWORD1
 
 DelayRun    KEYWORD1
 startDelayed    KEYWORD2
+
+Dimmer    KEYWORD1
+startPulsate    KEYWORD2
+hold    KEYWORD2
+off    KEYWORD2
+revertDirection    KEYWORD2
+setFrequency    KEYWORD2
+getUpperLimit    KEYWORD2
+
