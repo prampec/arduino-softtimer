@@ -33,3 +33,5 @@ revertDirection    KEYWORD2
 setFrequency    KEYWORD2
 getUpperLimit    KEYWORD2
 
+FrequencyTask    KEYWORD1
+setFrequency    KEYWORD2
