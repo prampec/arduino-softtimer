@@ -7,7 +7,7 @@
 #include <SoftTimer.h>
 }}}
 
-2. You need to create a Task with parameters of period (ms) and the callback function. E.g. callBack1 is to be called in every 2000 milliseconds:
+2. You need to create a Task with parameters of period (ms) and the callback function. E.g. callBack1 is to be called in every 2000 milliseconds (that is 2 seconds):
 {{{
 Task t1(2000, callBack1);
 
