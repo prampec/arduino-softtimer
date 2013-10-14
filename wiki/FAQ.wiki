@@ -1,0 +1,16 @@
+#summary One-sentence summary of this page.
+
+= Frequently Asked Questions about SoftTimer =
+
+=== Can I change the period of a Task? ===
+
+Sure you can do that. Please take a look at the Task.h interface documentation:
+[http://code.google.com/p/arduino-softtimer/source/browse/trunk/Task.h Task.h]
+
+So you can set the period with "setPeriodMs()" any time.
+
+
+=== Do I need to remove/add my Task after changing the period? ===
+
+You do not need to do that, but calling the setPeriodMs() will not reset the existing state of the task.
+I you have the restart the counting of the timer while changing the period, you need to do it by either setting the lastCallTimeMicros property of the task, or remove/add your task again.
