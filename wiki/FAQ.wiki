@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Please check this list for an answer before asking new question.
 
 = Frequently Asked Questions about SoftTimer =
 
