@@ -4,7 +4,7 @@
 
 === I'm new to C++ programming. Can you recommend me SoftTimer? ===
 
-If you just want to start periodic jobs, you can do that easily with SoftTimer. Also you take a look at the provided tools, (e.g. blinker, debouncer) as they are also easy to use. See example codes!
+If you just want to start periodic jobs, you can do that easily with SoftTimer. Also take a look at the provided tools (e.g. blinker, debouncer), as they are also easy to use. See example codes!
 
 Writing your own Task implementation needs C++ knowledge. The C++ has a quite ugly syntax to define classes, that is hard to understand for beginners. But you can always use my implementations (like the [http://code.google.com/p/arduino-softtimer/source/browse/trunk/BlinkTask.h BlinkTask.h], [http://code.google.com/p/arduino-softtimer/source/browse/trunk/BlinkTask.cpp BlinkTask.cpp]) as a template.
 
