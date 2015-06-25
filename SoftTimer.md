@@ -9,7 +9,7 @@ When you use SoftTimer you do not implement the "loop" function of the Arduino. 
 
 I also try to add some usefully tools to use SoftTimer out of the box (like blinker, pwm, debouncer, etc.)
 
-You can download the actual version from the [Releases page].(https://github.com/prampec/arduino-softtimer/releases)
+You can download the actual version from the [Releases page](https://github.com/prampec/arduino-softtimer/releases).
 
 
 # Documentation content #
