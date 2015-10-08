@@ -44,7 +44,7 @@
 /** We say that 50 milliseconds are enough for the signal to stabilize. */
 #define DEFAULT_DEBOUNCE_DELAY_MILLIS 50
 
-class Debouncer : public PciListener, public DelayRun
+class Debouncer : public PciListener, public Task
 {
   public:
     /**
@@ -59,7 +59,7 @@ class Debouncer : public PciListener, public DelayRun
       *   The callback receives the pressTimespan parameter that is the time in milliseconds the button was hold down before
       *   it was released.
       */
-    Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleased)(unsigned long pressTimespan));
+    Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleased)(unsigned long pressTimespan), bool pullUp=false);
     
     /**
      * Please call this function on interrupt.
@@ -69,7 +69,8 @@ class Debouncer : public PciListener, public DelayRun
     /**
      * Change the delay of the bouncing time-span. The default value is DEFAULT_DEBOUNCE_DELAY_MILLIS;
      */
-    boolean setDebounceDelayMs(unsigned long debounceDelayMs);
+	unsigned long debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MILLIS;
+	boolean setDebounceDelayMs(unsigned long debounceDelayMs) { this->debounceDelayMs = debounceDelayMs; return true; };
   private:
     int _pin;
     int _onLevel;
@@ -77,7 +78,7 @@ class Debouncer : public PciListener, public DelayRun
     unsigned long _pressStart;
     void (*_onPressed)();
     void (*_onReleased)(unsigned long pressTimespan);
-    static boolean step(Task* me);
+    static void step(Task* me);
 };
 
 #endif

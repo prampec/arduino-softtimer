@@ -26,17 +26,25 @@
 
 #include "Arduino.h"
 #include "Debouncer.h"
-#include <DelayRun.h>
+#include <Task.h>
 
-Debouncer::Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleased)(unsigned long pressTimespan))
-    : DelayRun(DEFAULT_DEBOUNCE_DELAY_MILLIS, &(Debouncer::step)) {
+#define IDDLE_TIME_MICROS -1L
+
+Debouncer::Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleased)(unsigned long pressTimespan), bool pullUp)
+    : Task(IDDLE_TIME_MICROS, &(Debouncer::step)) {
   this->_pin = pin;
   this->_state = STATE_OFF;
   this->_onLevel = pushMode;
   this->_onPressed = onPressed;
   this->_onReleased = onReleased;
   
-  pinMode(pin, INPUT);
+  if(pullUp) {
+    pinMode(pin, INPUT_PULLUP);
+  } else {
+    pinMode(pin, INPUT);
+  }
+
+  SoftTimer.add(this);
 }
 
 void Debouncer::pciHandleInterrupt(byte vect) {
@@ -50,14 +58,19 @@ void Debouncer::pciHandleInterrupt(byte vect) {
       }
       // -- After pin change we have the opposite level, lets start the bouncing timespan.
       this->_state += 1;
-      this->startDelayed();
+      this->lastCallTimeMicros = micros();
+      this->setPeriodMs(this->debounceDelayMs);
     }
   }
 }
 
-boolean Debouncer::step(Task* task) {
+void Debouncer::step(Task* task) {
   Debouncer* debouncer = (Debouncer*)task;
+  if((debouncer->_state == STATE_OFF) || (debouncer->_state == STATE_ON)) {
+	  return;
+  }
   int val = digitalRead(debouncer->_pin);
+  debouncer->setPeriodMs(IDDLE_TIME_MICROS);
   if(debouncer->_state == STATE_OFFON_BOUNCING) {
     if(val == debouncer->_onLevel) {
     
@@ -91,9 +104,5 @@ boolean Debouncer::step(Task* task) {
       debouncer->_state = STATE_ON;
     }
   }
-  return false;
-}
-
-boolean Debouncer::setDebounceDelayMs(unsigned long debounceDelayMs) {
-  this->setPeriodMs(debounceDelayMs);
+  return;
 }
