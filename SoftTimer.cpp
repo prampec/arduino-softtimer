@@ -93,11 +93,13 @@ void SoftTimerClass::remove(Task* task) {
  * Walk through the chain looking for task to call.
  */
 void SoftTimerClass::run() {
-  Task* task = this->_tasks;
-  // -- (If this->_tasks is NULL, than nothing is registered.)
-  while(task != NULL) {
-    this->testAndCall(task);
-    task = task->nextTask;
+  while(true) {
+    Task* task = this->_tasks;
+    // -- (If this->_tasks is NULL, than nothing is registered.)
+    while(task != NULL) {
+      this->testAndCall(task);
+      task = task->nextTask;
+    }
   }
 }
 
@@ -114,6 +116,7 @@ void SoftTimerClass::testAndCall(Task* task) {
       ))
     || ((now < task->lastCallTimeMicros) && (task->lastCallTimeMicros <= calc))) // -- timer overflows, but interval-end does not
   {
+    task->nowMicros = now;
     task->callback(task);
     task->lastCallTimeMicros = now;
   }

@@ -58,6 +58,11 @@ class Task
     volatile unsigned long lastCallTimeMicros;
     
     /**
+     * Start time of the task.
+     */
+    volatile unsigned long nowMicros;
+    
+    /**
      * The function that will be called when the period time was passed since the lastCallTime. This member is for internal use only.
      */
     void (*callback)(Task* me);
