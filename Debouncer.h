@@ -29,8 +29,8 @@
 
 #include <SoftTimer.h>
 #include <DelayRun.h>
-//#include <PciListener.h>
-#include "../PciManager/PciListener.h"
+#include <PciListener.h>
+//#include "../PciManager/PciListener.h"
 #include <Arduino.h>
 
 #define MODE_OPEN_ON_PUSH HIGH
@@ -42,7 +42,7 @@
 #define STATE_ONOFF_BOUNCING 3
 
 /** We say that 50 milliseconds are enough for the signal to stabilize. */
-#define DEFAULT_DEBOUNCE_DELAY_MILLIS 50
+#define DEFAULT_DEBOUNCE_DELAY_MICROS 50000
 
 class Debouncer : public PciListener, public Task
 {
@@ -69,8 +69,8 @@ class Debouncer : public PciListener, public Task
     /**
      * Change the delay of the bouncing time-span. The default value is DEFAULT_DEBOUNCE_DELAY_MILLIS;
      */
-	unsigned long debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MILLIS;
-	boolean setDebounceDelayMs(unsigned long debounceDelayMs) { this->debounceDelayMs = debounceDelayMs; return true; };
+    unsigned long debounceDelayMicros = DEFAULT_DEBOUNCE_DELAY_MICROS;
+    boolean setDebounceDelayMs(unsigned long debounceDelayMs) { this->debounceDelayMicros = debounceDelayMs * 1000; return true; };
   private:
     int _pin;
     int _onLevel;
