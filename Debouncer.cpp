@@ -59,7 +59,7 @@ void Debouncer::pciHandleInterrupt(byte vect) {
       // -- After pin change we have the opposite level, lets start the bouncing timespan.
       this->_state += 1;
       this->lastCallTimeMicros = micros();
-      this->setPeriodMs(this->debounceDelayMs);
+      this->periodMicros = this->debounceDelayMicros;
     }
   }
 }
