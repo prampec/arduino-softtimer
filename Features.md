@@ -1,7 +1,7 @@
 # Detailed description of the provided features #
 
 
-## [BlinkTask](http://code.google.com/p/arduino-softtimer/source/browse/trunk/BlinkTask.h) ##
+## [BlinkTask](https://github.com/prampec/arduino-softtimer/blob/master/src/BlinkTask.h) ##
 
 
 Every physical computing project starts with a blinking of a led.
@@ -17,7 +17,7 @@ Perpetual mode has two kinds:
 
 BlinkTask can work with on level of HIGH (default) or LOW.
 
-Use start() function to register the task in the Timer Manager, so start blinking. See [BlinkTask.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/BlinkTask.h) header file for details.
+Use start() function to register the task in the Timer Manager, so start blinking. See [BlinkTask.h](https://github.com/prampec/arduino-softtimer/blob/master/src/BlinkTask.h) header file for details.
 
 ```
 #include <SoftTimer.h>
@@ -35,10 +35,10 @@ void setup() {
 
 
 
-## [TonePlayer](http://code.google.com/p/arduino-softtimer/source/browse/trunk/TonePlayer.h) ##
+## [TonePlayer](https://github.com/prampec/arduino-softtimer/blob/master/src/TonePlayer.h) ##
 
 
-Tone player plays a melody on a specified output pin using the tone() and noTone() Arduino functions. You can specify the melody in quite tricky way, see [TonePlayer.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/TonePlayer.h) header file for details.
+Tone player plays a melody on a specified output pin using the tone() and noTone() Arduino functions. You can specify the melody in quite tricky way, see [TonePlayer.h](https://github.com/prampec/arduino-softtimer/blob/master/src/TonePlayer.h) header file for details.
 
 ```
 #include <SoftTimer.h>
@@ -58,9 +58,9 @@ Note, that you must take care to wait for the melody to finish before playing th
 
 
 
-## [SoftPwmTask](http://code.google.com/p/arduino-softtimer/source/browse/trunk/SoftPwmTask.h) ##
+## [SoftPwmTask](https://github.com/prampec/arduino-softtimer/blob/master/src/SoftPwmTask.h) ##
 
-With this task you can add PWM functionality for pins that did not have hardware PWM. See [SoftPwmTask.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/SoftPwmTask.h) header file for details.
+With this task you can add PWM functionality for pins that did not have hardware PWM. See [SoftPwmTask.h](https://github.com/prampec/arduino-softtimer/blob/master/src/SoftPwmTask.h) header file for details.
 
 ```
 #include <SoftTimer.h>
@@ -82,9 +82,9 @@ void setup(void)
 ```
 
 
-## [DelayRun](http://code.google.com/p/arduino-softtimer/source/browse/trunk/DelayRun.h) ##
+## [DelayRun](https://github.com/prampec/arduino-softtimer/blob/master/src/DelayRun.h) ##
 
-This class is to launch something after an amount of period. You can even specify a "followedBy" task, which will be run after this one has finished. See [DelayRun.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/DelayRun.h) header file for details.
+This class is to launch something after an amount of period. You can even specify a "followedBy" task, which will be run after this one has finished. See [DelayRun.h](https://github.com/prampec/arduino-softtimer/blob/master/src/DelayRun.h) header file for details.
 
 ```
 #include <SoftTimer.h>
@@ -126,7 +126,7 @@ boolean turnOn(Task* task) {
 
 
 
-## [Debouncer](http://code.google.com/p/arduino-softtimer/source/browse/trunk/Debouncer.h) ##
+## [Debouncer](https://github.com/prampec/arduino-softtimer/blob/master/src/Debouncer.h) ##
 
 
 The debouncer task recommends to use the PciManager to manage the pin change interrupts. However you may handle interrupts manually.
@@ -140,7 +140,7 @@ Debouncer will call your "onPressed" callback function when the button has a sab
 
 You can use this debouncer both on Normally Opened and on Normally Closed circuits.
 
-See [Debouncer.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/Debouncer.h) header file for details.
+See [Debouncer.h](https://github.com/prampec/arduino-softtimer/blob/master/src/Debouncer.h) header file for details.
 
 ```
 // -- Pin change interrupt
@@ -170,32 +170,40 @@ void onReleased(unsigned long pressTimespanMs) {
 
 
 
+## [Rotary](https://github.com/prampec/arduino-softtimer/blob/master/src/Rotary.h) ##
 
 
-## [Heartbeat](http://code.google.com/p/arduino-softtimer/source/browse/trunk/Heartbeat.h) ##
+Rotary is a rotary encoder driver managed by SoftTimer.
+
+See [Rotary.h](https://github.com/prampec/arduino-softtimer/blob/master/src/Rotary.h) header file for details.
+
+
+
+
+## [Heartbeat](https://github.com/prampec/arduino-softtimer/blob/master/src/Heartbeat.h) ##
 
 
 Heartbeat is a special blinker. It is intended to use a visual indicator for your project more easy.
 
 Heartbeat creates a custom timed BlinkTask and starts is immediately.
 
-See [Heartbeat.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/Heartbeat.h) header file for details.
+See [Heartbeat.h](https://github.com/prampec/arduino-softtimer/blob/master/src/Heartbeat.h) header file for details.
 
 
 
 
-## [Dimmer](http://code.google.com/p/arduino-softtimer/source/browse/trunk/Dimmer.h) ##
+## [Dimmer](https://github.com/prampec/arduino-softtimer/blob/master/src/Dimmer.h) ##
 
 
 With the dimmer you can easily adjust the PWM level of an output. The dimming is done in linear scale. Dimmer has some neat options, like hold/continue dimming, or revert direction any time. You can also set it up to be automatically stopped when limit (totally on/totally off) reached.
 
-See [Dimmer.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/Dimmer.h) header file for details.
+See [Dimmer.h](https://github.com/prampec/arduino-softtimer/blob/master/src/Dimmer.h) header file for details.
 
 
 
-## [FrequencyTask](http://code.google.com/p/arduino-softtimer/source/browse/trunk/FrequencyTask.h) ##
+## [FrequencyTask](https://github.com/prampec/arduino-softtimer/blob/master/src/FrequencyTask.h) ##
 
 
 Frequency task is just to play with the possibilities of the SoftTimer library. With the FrequencyTask you can generate square wave frequencies.
 
-See [FrequencyTask.h](http://code.google.com/p/arduino-softtimer/source/browse/trunk/FrequencyTask.h) header file for details.
+See [FrequencyTask.h](https://github.com/prampec/arduino-softtimer/blob/master/src/FrequencyTask.h) header file for details.
