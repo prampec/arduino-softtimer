@@ -33,7 +33,6 @@
 Debouncer::Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleased)(unsigned long pressTimespan), bool pullUp)
     : Task(IDDLE_TIME_MICROS, &(Debouncer::step)) {
   this->_pin = pin;
-  this->_state = STATE_OFF;
   this->_onLevel = pushMode;
   this->_onPressed = onPressed;
   this->_onReleased = onReleased;
@@ -43,6 +42,7 @@ Debouncer::Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleas
   } else {
     pinMode(pin, INPUT);
   }
+  this->_state = digitalRead(this->_pin) == this->_onLevel ? STATE_ON : STATE_OFF;
 
   SoftTimer.add(this);
 }
