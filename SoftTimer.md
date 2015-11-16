@@ -2,12 +2,12 @@
 
 SoftTimer is an Arduino library.
 
-SoftTimer enable a higher level Arduino programing, jet easy to use, and lightweight.
-You often face with the problem that you need to do multiply task in the same time. In SoftTimer manner programmer creates Tasks that runs periodically.
+SoftTimer enables a higher level Arduino programing, while its lightweight and easy to use.
+The programmer is often faced with the problem that he/she needs to run multiple tasks at the same time. With SoftTimer, the programmer is able create Tasks that run periodically.
 
-When you use SoftTimer you do not implement the "loop" function of the Arduino. All your code will run event driven, all processes running asynchronous, no more blocking code (like sleep) is needed.
+With SoftTimer, one does not implement the "loop" function of the Arduino. Instead, all code will be event driven, all processes running asynchronously, eliminating the need for any blocking code (like sleep).
 
-I also try to add some usefully tools to use SoftTimer out of the box (like blinker, pwm, debouncer, etc.)
+Some useful tools are also included with SoftTimer out of the box (like blinker, pwm, debouncer, etc.)
 
 You can download the actual version from the [Releases page](https://github.com/prampec/arduino-softtimer/releases).
 
