@@ -1,11 +1,11 @@
 # Quick-Start guide #
 
-1. Include SoftTimer in your program.
+##### 1. Include SoftTimer in your program.
 ```
 #include <SoftTimer.h>
 ```
 
-2. You need to create a Task with parameters of period (ms) and the callback function. E.g. callBack1 is to be called in every 2000 milliseconds (that is 2 seconds):
+##### 2. You need to create a Task with parameters of period (ms) and the callback function. E.g. callBack1 is to be called in every 2000 milliseconds (that is 2 seconds):
 ```
 Task t1(2000, callBack1);
 
@@ -14,14 +14,14 @@ void callBack1(Task* me) {
 }
 ```
 
-3. Register your task to the SoftTimer (Timer Manager).
+##### 3. Register your task to the SoftTimer (Timer Manager).
 ```
 void setup() {
   SoftTimer.add(&t1);
 }
 ```
 
-4. You are finished. You may add more tasks, or use some bundled task implementations.
+##### 4. You are finished. You may add more tasks, or use some bundled task implementations.
 
 Full code:
 ```
