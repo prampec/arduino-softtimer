@@ -32,6 +32,6 @@ void myLoop(Task* me) {
 }
 ```
 
-You can register (add) or remove tasks any time.
+You can register (add) or remove tasks any time, and of course you can tune the timings later on.
 
 Note that SoftTimer (from v2.0) works on **microsecond** basis. This means, you can not register task with period more than an hour!
