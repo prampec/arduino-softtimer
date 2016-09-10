@@ -1,5 +1,28 @@
 # Detailed description of the provided features #
 
+If you want to have detailed documentation it is always a good idea to browse the code for comments. Aspecially suggested to read the header files, where you will find all the available features well documented.
+
+Here you will find some key features of the software explained.
+
+
+## [Task](https://github.com/prampec/arduino-softtimer/blob/master/src/Task.h) ##
+
+
+Task is the basic building block of SoftTimer. A task defines a timing and a job. To be more precise, you need to specify the time of calling period, and the callback function to be called.
+
+The basic idea here, is that you will create a job in a callback method, that will be called each time the specified time was passed. Of course you always have the possibility to remove the Task from the timer manager in the job with `SoftTimer.remove(task)`, e.g. in case it is only need to be called once.
+
+Please take a look at the [Task.h](https://github.com/prampec/arduino-softtimer/blob/master/src/Task.h). You can see the constructor reflects the words above: you need to specify a timing period in milliseconds, and the callback function.
+
+You can also see in the header file, that the period can be changed later with `setPeriodMs(periodInMilliseconds)`. Further more, the period is stored in microseconds basis in a public property, that you are free to adjust.
+
+> In the task a nowMicros property also provided. The idea for this is that the timer manager already needs to check for the current microseconds, and your job might also interested in the current time. Checking the microseconds two times is a waste of cpu-cycles, so you can have it in this property for your own use.
+
+The time of the last calling occurrence also stored in a public property. You must understand, that the timer manager will call your job, when the **lastCallTimeMicros** plus the **periodMicros** is passed (added value is less than the actual time). Advanced developers might want to tweak the system by modifying the lastCallTimeMicros of a job (e.g. reset a countdown timer).
+
+ > When you are about to use the SoftTimer module. You will find yourself, that you will like to write proper C++ code. The way to achieve this, is to inherit from the Task class, and define your job logic in this class. Separated from other logic and reusable. The following part of this documentation contains good example for that: all of these features are inherits Task. You might want to follow them as templates.
+**Note**: Arduino does not let you to pass class member methods, as function pointer. You always need to have a static function to act as a callback. This is why the Task is always passed to the callback method as parameter.
+
 
 ## [BlinkTask](https://github.com/prampec/arduino-softtimer/blob/master/src/BlinkTask.h) ##
 
