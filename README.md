@@ -8,7 +8,7 @@ I also try to add some usefully tools to use SoftTimer out of the box (like blin
 
 You can install SoftTimer library directly from the Library Manager of the Arduino IDE. Follow this link for details: [How to Install a Library](https://www.arduino.cc/en/Guide/Libraries#toc3)
 
-An **external dependecy** PciManager library is required to compile the SoftTimer library. You can also install it from the Library Manager, as mentioned above. 
+An **external dependency** PciManager library is required to compile the SoftTimer library. You can also install it from the Library Manager, as mentioned above. 
 
 The detailed documentation can be found here:
 
