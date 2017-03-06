@@ -1,3 +1,10 @@
+/**
+ * Note, that this example WILL FAIL TO LINK with the Arduino IDE.
+ * This problem occurs due to the automatic dependency collection of the Arduino,
+ * as PciManager.cpp will be also linked to this build.
+ * As a solution, you might try to mess around to tweak this automatism, or
+ * (and I recommend this one) just skip this example.
+**/
 // -- Pin change interrupt
 #include <avr/interrupt.h>
 #include <SoftTimer.h>
@@ -40,7 +47,7 @@ ISR(PCINT2_vect){
 
 
 void pinChanged() {
-  debouncer.handlePinChangeInterrupt(-1);
+  debouncer.pciHandleInterrupt(-1);
   Serial.print(".");
 }
 
