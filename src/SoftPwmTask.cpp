@@ -46,8 +46,12 @@ void SoftPwmTask::analogWrite(byte value) {
 }
 
 void SoftPwmTask::off() {
-   *this->_portRegister &= ~this->_bitMask;
- }
+  *this->_portRegister &= ~this->_bitMask;
+}
+
+void SoftPwmTask::setFrequency(unsigned long freq) {
+  this->periodMicros = 500000UL / freq;
+}
 
 void SoftPwmTask::step(Task* task)
 {
