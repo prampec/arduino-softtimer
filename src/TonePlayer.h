@@ -62,7 +62,7 @@ class TonePlayer : Task
     int _outPin;
     unsigned long _baseLength;
     String _tones;
-    int _pos;
+    size_t _pos;
     bool _playing;
     static void step(Task* me);
 };
