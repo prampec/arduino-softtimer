@@ -5,7 +5,7 @@
  *
  * Author: Balazs Kelemen
  * Contact: prampec+arduino@gmail.com
- * Copyright: 2012 Balazs Kelemen
+ * Copyright: 2017 Balazs Kelemen
  * Copying permission statement:
     This file is part of SoftTimer.
 
@@ -113,7 +113,11 @@ class BlinkTask : public Task
     byte _state;
 
     uint8_t _bitMask;
+#ifndef ESP8266
     volatile uint8_t *_portRegister;
+#else
+    volatile uint32_t *_portRegister;
+#endif
 };
 
 #endif

@@ -5,7 +5,7 @@
  *
  * Author: Balazs Kelemen
  * Contact: prampec+arduino@gmail.com
- * Copyright: 2012 Balazs Kelemen
+ * Copyright: 2017 Balazs Kelemen
  * Copying permission statement:
     This file is part of SoftTimer.
 
@@ -34,8 +34,8 @@ void BlinkTask::init(byte outPin, unsigned long onMs, unsigned long offMs, byte 
   this->delayMs = delayMs;
 
   pinMode(outPin, OUTPUT);
-  _bitMask = digitalPinToBitMask(outPin);
-  _portRegister = portOutputRegister(digitalPinToPort(outPin));
+  this->_bitMask = digitalPinToBitMask(outPin);
+  this->_portRegister = portOutputRegister(digitalPinToPort(outPin));
 
   this->onLevel = HIGH;
 }
