@@ -6,6 +6,11 @@
 #define ROT_PIN_B A5
 #define ROT_PUSH A3
 
+// -- Define method signatures.
+void onRotate(short direction, Rotary* rotary);
+void onRotPushPress();
+void onRotPushRelease(unsigned long pressTime);
+
 Rotary r(ROT_PIN_A, ROT_PIN_B, onRotate, true);
 Debouncer rotPushDebouncer(ROT_PUSH, MODE_CLOSE_ON_PUSH, onRotPushPress, onRotPushRelease, true);
 

@@ -12,6 +12,10 @@
 
 #define INPUT_PIN 3
 
+// -- Define method signatures.
+void onPressed();
+void onReleased(unsigned long pressTimespan);
+
 Debouncer debouncer(INPUT_PIN, MODE_CLOSE_ON_PUSH, onPressed, onReleased);
 
 

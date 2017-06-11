@@ -3,6 +3,10 @@
 
 #define OUT_PIN 13
 
+// -- Define method signatures.
+boolean turnOff(Task* task);
+boolean turnOn(Task* task);
+
 // -- This task will turn off the LED after 1 second.
 DelayRun offTask(1000, turnOff);
 // -- This task will turn on the LED after 2 seconds.

@@ -5,6 +5,10 @@
 
 // -- Creates an starts a visible indicator.
 Heartbeat heartbeat(LED_PIN);
+
+// -- Define method signature.
+void myLoop(Task* me);
+
 // -- My task.
 Task t1(0, myLoop);
 

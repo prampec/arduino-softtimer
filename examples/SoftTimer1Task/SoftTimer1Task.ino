@@ -1,5 +1,9 @@
 #include <SoftTimer.h>
 
+// -- Define method signature.
+void callBack1(Task* me);
+void callBack2(Task* me);
+
 Task t1(2000, callBack1);
 Task t2(1111, callBack2);
 

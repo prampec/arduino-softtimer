@@ -10,6 +10,9 @@ FrequencyTask f1(BEEPER_PIN, 261.63);
 FrequencyTask f2(BEEPER_PIN, 329.63);
 FrequencyTask f3(BEEPER_PIN, 392.00);
 
+// -- Define method signature.
+void stateStep(Task* task);
+
 // -- This task will switch on/off the frequency tasks.
 Task stateStepTask(3000, stateStep);
 
