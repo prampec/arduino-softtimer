@@ -10,6 +10,10 @@
 #define ON_OFF_FREQ_MS 1500
 #define TRESHOLD_MS 600
 
+// -- Define method signatures.
+void onPressed();
+void onReleased(unsigned long pressTimespan);
+
 // -- Button for input.
 Debouncer debouncer(INPUT_PIN, MODE_CLOSE_ON_PUSH, onPressed, onReleased);
 // -- Set up PWM to the out pin.

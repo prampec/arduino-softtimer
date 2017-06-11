@@ -5,6 +5,10 @@
 
 #define OUT_PIN  13
 
+// -- Define method signatures.
+void increment(Task* me);
+void decrement(Task* me);
+
 // -- Set up PWM to the out pin.
 SoftPwmTask pwm(OUT_PIN);
 // -- This task will increment the PWM value. Will be called in every 50 milliseconds.

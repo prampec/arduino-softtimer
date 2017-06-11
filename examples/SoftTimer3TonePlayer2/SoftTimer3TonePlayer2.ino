@@ -14,6 +14,9 @@ BlinkTask hartbeat(LED_PIN, 200, 100, 2, 2000);
 // -- Player initialized with 200ms as base time-span.
 TonePlayer tonePlayer(BEEPER_PIN, 200);
 
+// -- Define method signature.
+void onInfraEvent();
+
 void setup(void)
 {
   // -- Setup interrupt on pin 3 (which is channel 1).
