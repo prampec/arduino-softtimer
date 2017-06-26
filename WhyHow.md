@@ -35,3 +35,25 @@ void myLoop(Task* me) {
 You can register (add) or remove tasks any time, and of course you can tune the timings later on.
 
 Note that SoftTimer (from v2.0) works on **microsecond** basis. This means, you can not register task with period more than an hour!
+
+
+# Platform dependent notes #
+
+As SoftTimer eliminates the use of the "loop()" function, on platforms, that has an internal watchdog (like the ESP8266) you need to "feed" the watchdog manually to prevent resets. (Or just disable the watchdog.)
+You can feed the watchdog with a task, e.g.:
+```c
+#include <SoftTimer.h>
+
+// -- Define method signature.
+void feedWatchdog(Task* me);
+
+Task watchdogFeederTask(100, feedWatchdog);
+
+void setup() {
+  SoftTimer.add(&watchdogFeederTask);
+}
+
+void feedWatchdog(Task* me) {
+  ESP.wdtFeed();
+}
+```
