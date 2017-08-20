@@ -27,6 +27,10 @@
 #include "BlinkTask.h"
 #include "SoftTimer.h"
 
+#define BLINK_STATE_OFF  0
+#define BLINK_STATE_ON   1
+#define BLINK_STATE_WAIT 2
+
 void BlinkTask::init(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs) {
   this->onMs = onMs;
   this->offMs = offMs;
@@ -58,7 +62,7 @@ BlinkTask::BlinkTask(byte outPin, unsigned long onMs, unsigned long offMs, byte 
 }
 
 void BlinkTask::start() {
-  this->_state = STATE_OFF;
+  this->_state = BLINK_STATE_OFF;
   this->_counter = 0;
   this->setPeriodMs(0);
   SoftTimer.add(this);
@@ -76,7 +80,7 @@ void BlinkTask::stop() {
 
 void BlinkTask::stepState(Task* task) {
   BlinkTask* bt = (BlinkTask*)task;
-  if(bt->_state == STATE_ON) {
+  if(bt->_state == BLINK_STATE_ON) {
     // -- Turn off.
     if(bt->onLevel == HIGH) {
       *bt->_portRegister &= ~bt->_bitMask;
@@ -84,7 +88,7 @@ void BlinkTask::stepState(Task* task) {
       *bt->_portRegister |= bt->_bitMask;
     }
     bt->_counter += 1;
-    bt->_state = STATE_OFF;
+    bt->_state = BLINK_STATE_OFF;
     bt->setPeriodMs(bt->offMs);
   }
   else {
@@ -95,7 +99,7 @@ void BlinkTask::stepState(Task* task) {
     } else {  
       *bt->_portRegister &= ~bt->_bitMask;
     }
-    bt->_state = STATE_ON;
+    bt->_state = BLINK_STATE_ON;
     bt->setPeriodMs(bt->onMs);
   }
   if((bt->count > 0) && (bt->_counter >= bt->count)) {
@@ -104,7 +108,7 @@ void BlinkTask::stepState(Task* task) {
     
     if(bt->delayMs > 0) {
       // -- delay was defined.
-      bt->_state = STATE_WAIT;
+      bt->_state = BLINK_STATE_WAIT;
       bt->setPeriodMs(bt->delayMs);
     } else {
       bt->stop();
