@@ -31,10 +31,6 @@
 #include "Arduino.h"
 #include "Task.h"
 
-#define STATE_OFF  0
-#define STATE_ON   1
-#define STATE_WAIT 2
-
 class BlinkTask : public Task
 {
   public:
