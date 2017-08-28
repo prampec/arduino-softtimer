@@ -37,6 +37,14 @@ You can register (add) or remove tasks any time, and of course you can tune the 
 Note that SoftTimer (from v2.0) works on **microsecond** basis. This means, you can not register task with period more than an hour!
 
 
+# Options #
+
+In SoftTimer.h there are some options provided. You include/exclude some macro defines to enable/disable those options.
+
+* __PREVENT_LOOP_ITERATION__ - With preventing loop() iteration you will benefit some milliseconds. On the other hand some platforms might depend on the loop(). If you are facing with strange behaviour, you might want to try disabling the PREVENT_LOOP_ITERATION option. PREVENT_LOOP_ITERATION is enabled by default.
+* __STRICT_TIMING__ - By default the next start of a task scheduled from the begining of the previous execution. But executions might shift if an other task does not finish in time. With STRICT_TIMING the next execution is scheduled for the expected time. STRICT_TIMING is disabled by default, as it might likely to cause starvation in the Tasks.
+
+
 # Platform dependent notes #
 
 As SoftTimer eliminates the use of the "loop()" function, on platforms, that has an internal watchdog (like the ESP8266) you need to "feed" the watchdog manually to prevent resets. (Or just disable the watchdog.)
