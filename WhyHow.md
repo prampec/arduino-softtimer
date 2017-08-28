@@ -47,7 +47,10 @@ In SoftTimer.h there are some options provided. You include/exclude some macro d
 
 # Platform dependent notes #
 
-As SoftTimer eliminates the use of the "loop()" function, on platforms, that has an internal watchdog (like the ESP8266) you need to "feed" the watchdog manually to prevent resets. (Or just disable the watchdog.)
+As SoftTimer eliminates the use of the "loop()" function, on platforms, that has some extra processing in every loop cicle, some troubles might appear.
+As a workaround a PREVENT_LOOP_ITERATION option is introduced. (See Options above!)
+
+For example, the internal watchdog in ESP8266 is feed by the system in every loop cycle, so if you do not disable the PREVENT_LOOP_ITERATION option, you need to "feed" the watchdog manually to prevent resets. (Or just disable the watchdog.)
 You can feed the watchdog with a task, e.g.:
 ```c
 #include <SoftTimer.h>
