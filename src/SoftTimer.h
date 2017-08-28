@@ -28,12 +28,14 @@
 #define SOFTTIMER_H
 
 // -- With preventing loop() iteration you will benefit some milliseconds.
-// -- On the other hand some platforms might depend on the loop().
+// -- On the other hand some platforms might depend on the loop(). If you are
+// -- facing with unexpected problems, you might want to try disableing this macro.
+// -- PREVENT_LOOP_ITERATION is enabled by default.
 #define PREVENT_LOOP_ITERATION
 
 // -- By default the next start of a task scheduled from the begining of the previous
 // -- execution. But executions might shift if an other task does not finish in time.
-// -- With STRICT_TIMING the next execution is scheduled for the expected time.
+// -- With STRICT_TIMING the next execution is scheduled at the expected time.
 // -- STRICT_TIMING is disabled by default, as it might likely to cause starvation.
 //#define STRICT_TIMING
 
