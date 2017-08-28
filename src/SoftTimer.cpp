@@ -28,11 +28,11 @@
 #include "SoftTimer.h"
 
 /**
- * The main loop is implemented here. You do not ever need to call implement this function
+ * The main loop is implemented here. You do not ever need to implement this function
  * if you think in event driven programing.
  */
 void loop() {
-  SoftTimer.run();
+  SoftTimer.run(); // -- run() will never return, if PREVENT_LOOP_ITERATION macro is defined.
 }
 
 
@@ -93,14 +93,18 @@ void SoftTimerClass::remove(Task* task) {
  * Walk through the chain looking for task to call.
  */
 void SoftTimerClass::run() {
+#ifdef PREVENT_LOOP_ITERATION
   while(true) {
+#endif
     Task* task = this->_tasks;
     // -- (If this->_tasks is NULL, than nothing is registered.)
     while(task != NULL) {
       this->testAndCall(task);
       task = task->nextTask;
     }
+#ifdef PREVENT_LOOP_ITERATION
   }
+#endif
 }
 
 /**
@@ -118,7 +122,11 @@ void SoftTimerClass::testAndCall(Task* task) {
   {
     task->nowMicros = now;
     task->callback(task);
+#ifdef STRICT_TIMING
+    task->lastCallTimeMicros = calc;
+#else
     task->lastCallTimeMicros = now;
+#endif
   }
 }
 
