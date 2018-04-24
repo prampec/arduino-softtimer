@@ -29,9 +29,9 @@
 
 // -- With preventing loop() iteration you will benefit some milliseconds.
 // -- On the other hand some platforms might depend on the loop(). If you are
-// -- facing with unexpected problems, you might want to try disableing this macro.
-// -- PREVENT_LOOP_ITERATION is enabled by default.
-#define PREVENT_LOOP_ITERATION
+// -- facing with unexpected problems, you might want to try enabling this macro.
+// -- ENABLE_LOOP_ITERATION is disabled by default.
+//#define ENABLE_LOOP_ITERATION
 
 // -- By default the next start of a task scheduled from the begining of the previous
 // -- execution. But executions might shift if an other task does not finish in time.
