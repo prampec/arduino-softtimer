@@ -93,7 +93,7 @@ void SoftTimerClass::remove(Task* task) {
  * Walk through the chain looking for task to call.
  */
 void SoftTimerClass::run() {
-#ifdef PREVENT_LOOP_ITERATION
+#ifndef ENABLE_LOOP_ITERATION
   while(true) {
 #endif
     Task* task = this->_tasks;
@@ -102,7 +102,7 @@ void SoftTimerClass::run() {
       this->testAndCall(task);
       task = task->nextTask;
     }
-#ifdef PREVENT_LOOP_ITERATION
+#ifndef ENABLE_LOOP_ITERATION
   }
 #endif
 }
