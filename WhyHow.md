@@ -39,18 +39,18 @@ Note that SoftTimer (from v2.0) works on **microsecond** basis. This means, you 
 
 # Options #
 
-In SoftTimer.h there are some options provided. You include/exclude some macro defines to enable/disable those options.
+In SoftTimer.h there are some options provided. You can include/exclude the following macro definitions in the SoftTimer.h to enable/disable these options.
 
-* __PREVENT_LOOP_ITERATION__ - With preventing loop() iteration you will benefit some milliseconds. On the other hand some platforms might depend on the loop(). If you are facing with strange behaviour, you might want to try disabling the PREVENT_LOOP_ITERATION option. PREVENT_LOOP_ITERATION is enabled by default.
+* __ENABLE_LOOP_ITERATION__ - With preventing loop() iteration you will benefit some milliseconds. On the other hand some platforms might depend on the loop(). If you are facing with strange behaviour, you might want to try including the ENABLE_LOOP_ITERATION option. ENABLE_LOOP_ITERATION is disabled by default.
 * __STRICT_TIMING__ - By default the next start of a task scheduled from the begining of the previous execution. But executions might shift if an other task does not finish in time. With STRICT_TIMING the next execution is scheduled for the expected time. STRICT_TIMING is disabled by default, as it might likely to cause starvation in the Tasks.
 
 
 # Platform dependent notes #
 
 As SoftTimer eliminates the use of the "loop()" function, on platforms, that has some extra processing in every loop cicle, some troubles might appear.
-As a workaround a PREVENT_LOOP_ITERATION option is introduced. (See Options above!)
+As a workaround the ENABLE_LOOP_ITERATION option is introduced. (See Options above!)
 
-For example, the internal watchdog in ESP8266 is feed by the system in every loop cycle, so if you do not disable the PREVENT_LOOP_ITERATION option, you need to "feed" the watchdog manually to prevent resets. (Or just disable the watchdog.)
+For example, the internal watchdog in ESP8266 is normally feed by the system in every loop cycle. So you will have two options for ESP8266. Either include the ENABLE_LOOP_ITERATION option, or "feed" the watchdog manually to prevent resets. (Or just disable the watchdog.)
 You can feed the watchdog with a task, e.g.:
 ```c
 #include <SoftTimer.h>
