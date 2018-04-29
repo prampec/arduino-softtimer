@@ -63,7 +63,7 @@ void setup(void){
 }
 
 void myLoop(Task* me) {
-//  ESP.wdtFeed();
+  ESP.wdtFeed();
   server.handleClient();
 }
 
