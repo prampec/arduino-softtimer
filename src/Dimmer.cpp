@@ -27,20 +27,20 @@
 #include "SoftTimer.h"
 #include "Dimmer.h"
 
-Dimmer::Dimmer(SoftPwmTask* pwm, int frequencyMs) : Task(10, &(Dimmer::step))
+Dimmer::Dimmer(SoftPwmTask* pwm, int frequencyMs, byte stepCount) : Task(10, &(Dimmer::step))
 {
   this->_pwm = pwm;
   this->direction = DIMMER_DIRECTION_HIGH;
   this->value = 0;
   this->_pwm->analogWrite((byte)this->value);
-  this->stepCount = DEFAULT_STEP_COUNT;
+  this->stepCount = stepCount;
 
   this->setFrequency(frequencyMs);
 }
 
 
-void Dimmer::startPulsate() {
-  this->stopOnLimit = false;
+void Dimmer::start(boolean stopOnLimit) {
+  this->stopOnLimit = stopOnLimit;
   SoftTimer.add(this->_pwm);
   SoftTimer.add(this);
 }
@@ -52,8 +52,16 @@ void Dimmer::hold() {
 void Dimmer::off() {
   this->hold();
   this->_pwm->off();
-  SoftTimer.remove(this);
+  this->value = 0;
   SoftTimer.remove(this->_pwm);
+  this->direction = DIMMER_DIRECTION_HIGH;
+}
+
+void Dimmer::on() {
+  this->hold();
+  this->value = this->_pwm->upperLimit;
+  this->_pwm->analogWrite(this->_pwm->upperLimit);
+  this->direction = DIMMER_DIRECTION_LOW;
 }
 
 void Dimmer::revertDirection() {
@@ -63,7 +71,6 @@ void Dimmer::revertDirection() {
 void Dimmer::setFrequency(int frequencyMs) {
   this->_stepLevel = (float)this->_pwm->upperLimit / (float)this->stepCount;
   this->periodMicros = (float)frequencyMs * 500.0 / (float)this->stepCount;
-  
 }
 
 byte Dimmer::getUpperLimit() {

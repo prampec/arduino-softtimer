@@ -43,23 +43,36 @@ class Dimmer : public Task
      * We use the SoftPwmTask for dimming.
      *  pwm - The predefined SoftPwm task.
      *  frequencyMs - Milliseconds will be passed in the OFF->ON->OFF cicle.
+     *  stepCount - Steps should be perform between a full ON-OFF state.
      */
-    Dimmer(SoftPwmTask* pwm, int frequencyMs);
+    Dimmer(SoftPwmTask* pwm, int frequencyMs, byte stepCount = DEFAULT_STEP_COUNT);
    
     /**
      * Start an unlimited pulsation from the current value on, in the current direction.
      */
-    void startPulsate();
+    void start(byte direction, byte stopOnLimit);
+    
+    /**
+     * Start dimming from the current value on, in the current direction.
+     *  stopOnLimit - An unlimited pulsation is starting.
+     */
+    void start(boolean stopOnLimit);
+    void startPulsate() { this->start(false); }
     
     /**
      * Hold current PWM value on the output.
      */
     void hold();
     
+   /**
+    * Stop PWM, and set output to LOW.
+    */
+   void off();
+   
     /**
-     * Stop PWM, and set output to LOW.
+     * Stop PWM, and set output to pwm->upperLimit.
      */
-    void off();
+    void on();
     
     /**
      * Make the dimming to change direction.

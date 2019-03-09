@@ -48,13 +48,17 @@ class SoftPwmTask : public Task
      * Turns the output to low.
      */
     void off();
+    
+   /**
+    * Sets the PWM frequency (count of ON-OFFs per second).
+    */
     void setFrequency(unsigned long freq);
     
     /**
      * The "always on" level of the PWM. The default is 255.
      */
     byte upperLimit;
-	  
+    
   private:
     int _outPin;
     byte _value;
