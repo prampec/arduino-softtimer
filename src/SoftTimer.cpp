@@ -112,13 +112,7 @@ void SoftTimerClass::run() {
  */
 void SoftTimerClass::testAndCall(Task* task) {
   unsigned long now = micros();
-  unsigned long calc = task->lastCallTimeMicros + task->periodMicros;
-  if(
-    ((now >= calc) && (
-      (calc >= task->lastCallTimeMicros) // -- Nothing was overflown.
-      || (task->lastCallTimeMicros > now) // -- Both timer and interval-end overflows
-      ))
-    || ((now < task->lastCallTimeMicros) && (task->lastCallTimeMicros <= calc))) // -- timer overflows, but interval-end does not
+  if(task->periodMicros <= (now - task->lastCallTimeMicros))
   {
     task->nowMicros = now;
     task->callback(task);
