@@ -1,0 +1,38 @@
+language: c
+env:
+  global:
+    - ARDUINO_VERSION=1.8.9
+before_install:
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
+  - sleep 3
+  - export DISPLAY=:1.0
+  - wget http://downloads.arduino.cc/arduino-$ARDUINO_VERSION-linux64.tar.xz
+  - tar xf arduino-$ARDUINO_VERSION-linux64.tar.xz
+  - sudo mv arduino-$ARDUINO_VERSION /usr/local/share/arduino
+  - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
+install:
+  - ln -s $PWD /usr/local/share/arduino/libraries/SoftTimer
+  - arduino --install-library "PciManager"
+script:
+#  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer1TaskESP8266/SoftTimer1TaskESP8266.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer2BlinkTask1/SoftTimer2BlinkTask1.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer2BlinkTask2/SoftTimer2BlinkTask2.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer2BlinkTask3/SoftTimer2BlinkTask3.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer2BlinkTask4/SoftTimer2BlinkTask4.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer3TonePlayer1/SoftTimer3TonePlayer1.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer3TonePlayer2/SoftTimer3TonePlayer2.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer4SoftPwmTask1/SoftTimer4SoftPwmTask1.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer4SoftPwmTask2/SoftTimer4SoftPwmTask2.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer5DelayRun1/SoftTimer5DelayRun1.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer5DelayRun2/SoftTimer5DelayRun2.ino
+#  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer5DelayRunEsp8266WebServer/SoftTimer5DelayRunEsp8266WebServer.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer6Debouncer1/SoftTimer6Debouncer1.ino
+#  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer6Debouncer2/SoftTimer6Debouncer2.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer6Rotary/SoftTimer6Rotary.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer7Heartbeat/SoftTimer7Heartbeat.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer8Dimmer/SoftTimer8Dimmer.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer9FrequencyTask/SoftTimer9FrequencyTask.ino
+notifications:
+  email:
+    on_success: change
+    on_failure: change
