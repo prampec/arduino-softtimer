@@ -19,6 +19,9 @@ Task stateStepTask(3000, stateStep);
 int state = 0;
 
 void setup() {
+  f1.init();
+  f2.init();
+  f3.init();
   SoftTimer.add(&stateStepTask);
 }
 

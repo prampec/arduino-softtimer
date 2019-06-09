@@ -38,16 +38,24 @@
 
 Rotary::Rotary(int pinA, int pinB, void (*onRotation)(short direction, Rotary* rotary), bool pullUp)
     : Task(IDDLE_TIME_MICROS, &(Rotary::step)) {
-  this->_listenerA.init(pinA, this, pullUp);
-  this->_listenerB.init(pinB, this, pullUp);
+  this->_pinA = pinA;
+  this->_pinB = pinB;
+  this->_pullUp = pullUp;
   this->_stateCW = EVENT_NOTIFIED;
   this->_stateCCW = EVENT_NOTIFIED;
   this->_onRotation = onRotation;
-  
-  PciManager.registerListener(pinA, &this->_listenerA);
-  PciManager.registerListener(pinB, &this->_listenerB);
+}
+
+void Rotary::init()
+{
+  this->_listenerA.init(this->_pinA, this, this->_pullUp);
+  this->_listenerB.init(this->_pinB, this, this->_pullUp);
+
+  PciManager.registerListener(this->_pinA, &this->_listenerA);
+  PciManager.registerListener(this->_pinB, &this->_listenerB);
 
   SoftTimer.add(this);
+  Task::init();
 }
 
 void Rotary::pciHandleChange(byte changedTo, PciListenerImp2* listener) {

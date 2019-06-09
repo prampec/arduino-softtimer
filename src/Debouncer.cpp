@@ -36,13 +36,19 @@ Debouncer::Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleas
   this->_onLevel = pushMode;
   this->_onPressed = onPressed;
   this->_onReleased = onReleased;
-  
-  if(pullUp) {
-    pinMode(pin, INPUT_PULLUP);
+  this->_pullUp = pullUp;
+}
+
+void Debouncer::init()
+{
+  if(this->_pullUp) {
+    pinMode(this->_pin, INPUT_PULLUP);
   } else {
-    pinMode(pin, INPUT);
+    pinMode(this->_pin, INPUT);
   }
   this->_state = digitalRead(this->_pin) == this->_onLevel ? STATE_ON : STATE_OFF;
+
+  Task::init();
 
   SoftTimer.add(this);
 }

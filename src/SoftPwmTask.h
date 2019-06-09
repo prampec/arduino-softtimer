@@ -37,6 +37,8 @@ class SoftPwmTask : public Task
      * We would like to do pwn on the given pin.
      */
     SoftPwmTask(int pin);
+
+    void init() override;
     
     /**
      * Just like in the Arduino implementation this method will set the duty level of the pin.

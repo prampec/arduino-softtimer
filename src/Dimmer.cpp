@@ -32,12 +32,16 @@ Dimmer::Dimmer(SoftPwmTask* pwm, int frequencyMs, byte stepCount) : Task(10, &(D
   this->_pwm = pwm;
   this->direction = DIMMER_DIRECTION_HIGH;
   this->value = 0;
-  this->_pwm->analogWrite((byte)this->value);
   this->stepCount = stepCount;
 
   this->setFrequency(frequencyMs);
 }
 
+void Dimmer::init()
+{
+  this->_pwm->analogWrite((byte)this->value);
+  Task::init();
+}
 
 void Dimmer::start(boolean stopOnLimit) {
   this->stopOnLimit = stopOnLimit;

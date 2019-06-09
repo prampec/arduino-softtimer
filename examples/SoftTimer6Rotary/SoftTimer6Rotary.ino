@@ -16,6 +16,8 @@ Debouncer rotPushDebouncer(ROT_PUSH, MODE_CLOSE_ON_PUSH, onRotPushPress, onRotPu
 
 void setup() {
   Serial.begin(9600);
+  rotPushDebouncer.init();
+  r.init();
   PciManager.registerListener(ROT_PUSH, &rotPushDebouncer);
 
   Serial.println("Ready.");

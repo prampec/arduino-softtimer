@@ -52,6 +52,8 @@ class Rotary : public Task, public IPciChangeHandler
       *   it was released.
       */
     Rotary(int pinA, int pinB, void (*onRotation)(short direction, Rotary* rotary), bool pullUp=false);
+
+    void init() override;
     
     /**
      * Please call this function on interrupt.
@@ -63,6 +65,10 @@ class Rotary : public Task, public IPciChangeHandler
     PciListenerImp2 _listenerB = PciListenerImp2();
     volatile int _stateCW;
     volatile int _stateCCW;
+    int _pinA;
+    int _pinB;
+    boolean _pullUp;
+
     void (*_onRotation)(short direction, Rotary* rotary);
     static void step(Task* me);
 };

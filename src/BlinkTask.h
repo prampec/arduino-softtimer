@@ -27,8 +27,7 @@
 #ifndef BLINKTASK_H
 #define BLINKTASK_H
 
-#include <inttypes.h>
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Task.h"
 
 class BlinkTask : public Task
@@ -69,6 +68,8 @@ class BlinkTask : public Task
      */
     BlinkTask(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs);
 
+    void init() override;
+
     /**
      * Register the blink Task to the Timer Manager: start blinking.
      */
@@ -102,12 +103,13 @@ class BlinkTask : public Task
     byte onLevel;
 
   private:
-    void init(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs);
+    void setupProperties(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs);
     static void stepState(Task* me);
     byte _counter;
     /** Can be STATE_OFF, STATE_ON, STATE_WAIT */
     byte _state;
 
+    byte _outPin;
     uint8_t _bitMask;
 #ifndef ESP8266
     volatile uint8_t *_portRegister;

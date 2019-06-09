@@ -27,6 +27,8 @@
 #ifndef SOFTTIMER_H
 #define SOFTTIMER_H
 
+#include "Arduino.h"
+
 // -- With preventing loop() iteration you will benefit some milliseconds.
 // -- On the other hand some platforms might depend on the loop(). If you are
 // -- facing with unexpected problems, you might want to try enabling this macro.
@@ -44,7 +46,6 @@
 class SoftTimerClass
 {
   public:
-  
     /**
      * Register a task in the timer manager.
      */
@@ -61,7 +62,7 @@ class SoftTimerClass
     void run();
   private:
     void testAndCall(Task* task);
-    Task* _tasks;
+    Task* _tasks = NULL;
 };
 
 extern SoftTimerClass SoftTimer;

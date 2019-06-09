@@ -33,13 +33,16 @@ SoftPwmTask::SoftPwmTask(int pin) : Task(0, &(SoftPwmTask::step))
   _value = 0;
   _counter = 0;
   upperLimit = 255;
-  pinMode(_outPin, OUTPUT);
   this->periodMicros = 30;
 
   _bitMask = digitalPinToBitMask(pin);
   _portRegister = portOutputRegister(digitalPinToPort(pin));
 }
 
+void SoftPwmTask::init() {
+  pinMode(this->_outPin, OUTPUT);
+  Task::init();
+}
 
 void SoftPwmTask::analogWrite(byte value) {
   this->_value = value;

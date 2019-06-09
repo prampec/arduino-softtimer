@@ -32,6 +32,7 @@
  */
 class Task
 {
+  friend class SoftTimerClass;
   public:
     /**
      * Construct a task with defining a period and a callback handler function.
@@ -40,6 +41,11 @@ class Task
      * have one argument, which is the currently running task.
      */
     Task(unsigned long periodMs, void (*callback)(Task* me));
+
+    /**
+     * Initialize the task.
+     */
+    virtual void init() { this->initialized = true; }
     
     /**
      * The timeslot in milliseconds the handler should be called.
@@ -50,7 +56,7 @@ class Task
     /**
      * The timeslot in milliseconds the handler should be called. If the value is near 1 the handler will be called in every loop.
      */
-    unsigned long periodMicros;
+    volatile unsigned long periodMicros;
     
     /**
      * The last call (start) time of the task. You can reset the task by setting this value to micros().
@@ -62,15 +68,13 @@ class Task
      */
     volatile unsigned long nowMicros;
     
+  private:
     /**
-     * The function that will be called when the period time was passed since the lastCallTime. This member is for internal use only.
+     * The function that will be called when the period time was passed since the lastCallTime.
      */
     void (*callback)(Task* me);
-    /**
-     * This member is for internal use only. Do not change!
-     */
     Task* nextTask;
-  private:
+    bool initialized = false;
 };
 
 #endif

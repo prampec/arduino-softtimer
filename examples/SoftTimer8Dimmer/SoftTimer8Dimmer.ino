@@ -21,6 +21,7 @@ SoftPwmTask pwm(OUT_PIN);
 Dimmer dimmer(&pwm, 1500);
 
 void setup() {
+  dimmer.init();
   PciManager.registerListener(INPUT_PIN, &debouncer);
 }
 

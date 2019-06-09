@@ -24,7 +24,6 @@
 
 */
 
-#include "Arduino.h"
 #include "SoftTimer.h"
 
 /**
@@ -32,14 +31,18 @@
  * if you think in event driven programing.
  */
 void loop() {
-  SoftTimer.run(); // -- run() will never return, if PREVENT_LOOP_ITERATION macro is defined.
+  SoftTimer.run(); // -- run() will never return, unless ENABLE_LOOP_ITERATION macro is defined.
 }
-
 
 /**
  * Register a task in the timer manager.
  */
 void SoftTimerClass::add(Task* task) {
+  // -- If a task is not initialized, we should do in now.
+  if (!task->initialized)
+  {
+    task->init();
+  }
 
   // -- A task should be registered only once.
   this->remove(task);

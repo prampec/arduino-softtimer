@@ -47,6 +47,8 @@ class Dimmer : public Task
      */
     Dimmer(SoftPwmTask* pwm, int frequencyMs, byte stepCount = DEFAULT_STEP_COUNT);
    
+    void init() override;
+
     /**
      * Start an unlimited pulsation from the current value on, in the current direction.
      */

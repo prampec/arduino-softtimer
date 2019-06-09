@@ -29,14 +29,20 @@
 
 FrequencyTask::FrequencyTask(int outPin, float freq) : Task(0, &(FrequencyTask::step))
 {
-  pinMode(outPin, OUTPUT);
-  
+  this->_outPin = outPin;
+
   _bitMask = digitalPinToBitMask(outPin);
   _portRegister = portOutputRegister(digitalPinToPort(outPin));
   
   this->setFrequency(freq);
 }
 
+void FrequencyTask::init()
+{
+  pinMode(this->_outPin, OUTPUT);
+  
+  Task::init();
+}
 
 void FrequencyTask::setFrequency(float freq) {
   this->periodMicros = 500000.0 / freq;

@@ -58,6 +58,12 @@ class TonePlayer : Task
       *   "c2e2g4" - Means C-note for 2 time-span, D-note for 2 time-span, E-note for 4 time-span.
       */
     void play(String tones);
+
+    /**
+     * Tune the music by half tones. (Use negative values to tune down.)
+     */
+    int tune = 0;
+
   private:
     int _outPin;
     unsigned long _baseLength;

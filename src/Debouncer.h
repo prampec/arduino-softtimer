@@ -60,6 +60,8 @@ class Debouncer : public PciListener, public Task
       *   it was released.
       */
     Debouncer(int pin, int pushMode, void (*onPressed)(), void (*onReleased)(unsigned long pressTimespan), bool pullUp=false);
+
+    void init() override;
     
     /**
      * Please call this function on interrupt.
@@ -74,8 +76,9 @@ class Debouncer : public PciListener, public Task
   private:
     int _pin;
     int _onLevel;
+    bool _pullUp;
     volatile int _state; // 0=off, 1=bouncing, 2=pressing
-    unsigned long _pressStart;
+    volatile unsigned long _pressStart;
     void (*_onPressed)();
     void (*_onReleased)(unsigned long pressTimespan);
     static void step(Task* me);

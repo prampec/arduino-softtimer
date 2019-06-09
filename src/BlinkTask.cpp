@@ -31,37 +31,48 @@
 #define BLINK_STATE_ON   1
 #define BLINK_STATE_WAIT 2
 
-void BlinkTask::init(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs) {
+void BlinkTask::setupProperties(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs) {
+  this->_outPin = outPin;
   this->onMs = onMs;
   this->offMs = offMs;
   this->count = count;
   this->delayMs = delayMs;
-
-  pinMode(outPin, OUTPUT);
-  this->_bitMask = digitalPinToBitMask(outPin);
-  this->_portRegister = portOutputRegister(digitalPinToPort(outPin));
-
   this->onLevel = HIGH;
 }
 
+void BlinkTask::init() {
+  pinMode(this->_outPin, OUTPUT);
+  this->_bitMask = digitalPinToBitMask(this->_outPin);
+  this->_portRegister = portOutputRegister(digitalPinToPort(this->_outPin));
+
+  // -- Turn off.
+  if(this->onLevel == HIGH) {
+    *this->_portRegister &= ~this->_bitMask;
+  } else {  
+    *this->_portRegister |= this->_bitMask;
+  }
+  Task::init();
+}
+
 BlinkTask::BlinkTask(byte outPin, unsigned long onOffMs) : Task(onOffMs, &(BlinkTask::stepState)) {
-  this->init(outPin, onOffMs, onOffMs, 0, 0);
+  this->setupProperties(outPin, onOffMs, onOffMs, 0, 0);
 }
 
 BlinkTask::BlinkTask(byte outPin, unsigned long onMs, unsigned long offMs) : Task(onMs, &(BlinkTask::stepState)) {
-  this->init(outPin, onMs, offMs, 0, 0);
+  this->setupProperties(outPin, onMs, offMs, 0, 0);
 }
 
 BlinkTask::BlinkTask(byte outPin, unsigned long onMs,unsigned long offMs, byte count) : Task(onMs, &(BlinkTask::stepState)) {
-  this->init(outPin, onMs, offMs, count, 0);
-  this->stop();
+  this->setupProperties(outPin, onMs, offMs, count, 0);
 }
 
-BlinkTask::BlinkTask(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs) : Task(onMs, &(BlinkTask::stepState)) {
-  this->init(outPin, onMs, offMs, count, delayMs);
+BlinkTask::BlinkTask(byte outPin, unsigned long onMs, unsigned long offMs, byte count, unsigned long delayMs)
+  : Task(onMs, &(BlinkTask::stepState)) {
+  this->setupProperties(outPin, onMs, offMs, count, delayMs);
 }
 
 void BlinkTask::start() {
+  this->init();
   this->_state = BLINK_STATE_OFF;
   this->_counter = 0;
   this->setPeriodMs(0);

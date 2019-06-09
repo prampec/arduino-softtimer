@@ -21,6 +21,7 @@ Debouncer debouncer(INPUT_PIN, MODE_CLOSE_ON_PUSH, onPressed, onReleased);
 
 void setup() {
   Serial.begin(9800);
+  debouncer.init();
   // -- Setup external pin change interrupt for the pin.
   setupInterrupts(INPUT_PIN);
   Serial.println("Ready.");

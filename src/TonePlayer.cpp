@@ -43,6 +43,7 @@ void TonePlayer::play(String tones) {
   this->_playing = true;
   this->_pos = 0;
   SoftTimer.add(this);
+//Serial.println("[Tone start]");
 }
 
 void TonePlayer::step(Task* task) {
@@ -53,6 +54,7 @@ void TonePlayer::step(Task* task) {
     tp->_playing = false;
     noTone(tp->_outPin);
     tp->setPeriodMs(tp->_baseLength / 20);
+//Serial.println("[Tone silence]");
     return;
   }
 
@@ -60,6 +62,7 @@ void TonePlayer::step(Task* task) {
   if(tp->_pos >= tp->_tones.length()) {
     SoftTimer.remove(tp);
     noTone(tp->_outPin);
+//Serial.println("[Tone Finished]");
     return;
   }
 
@@ -78,6 +81,7 @@ void TonePlayer::step(Task* task) {
     if(tune < -9) {
       tune += 6; // -- Skip characters between character capital 'Z' and 'a'.
     }
+    tune += tp->tune;
     if(tune > 0) {
       while(tune != 0) {
         val *= trot;

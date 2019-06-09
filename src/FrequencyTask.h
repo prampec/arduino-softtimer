@@ -42,12 +42,15 @@ class FrequencyTask : public Task
      */
     FrequencyTask(int outPin, float freq);
    
+    void init() override;
+
     /**
      * Adjust the frequency.
      */
     void setFrequency(float freq);
     
   private:
+    int _outPin;
     boolean _stateOn;
     uint8_t _bitMask;
 #ifndef ESP8266
