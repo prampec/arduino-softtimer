@@ -1,5 +1,5 @@
 /**
- * File: Dimmer.h
+ * File: HardDimmer.h
  * Description:
  * SoftTimer library is a lightweight but effective event based timeshare solution for Arduino.
  *
@@ -24,8 +24,8 @@
 
 */
 
-#ifndef DIMMER_H
-#define DIMMER_H
+#ifndef HARDDIMMER_H
+#define HARDDIMMER_H
 
 #include "Task.h"
 #include "SoftPwmTask.h"
@@ -36,45 +36,34 @@
 
 #define DEFAULT_STEP_COUNT 8
 
-class Dimmer : public Task
+/**
+ * HardDimmer should be a drop in replacement for Dimmer,
+ * expect for the constructor.
+ */
+class HardDimmer : public Task
 {
   public:
     /**
      * We use the SoftPwmTask for dimming.
      *  pwm - The predefined SoftPwm task.
      *  frequencyMs - Milliseconds will be passed in the OFF->ON->OFF cycle.
-     *  stepCount - Steps should be perform between a full ON-OFF state.
      */
-    Dimmer(SoftPwmTask* pwm, int frequencyMs, byte stepCount = DEFAULT_STEP_COUNT);
+    HardDimmer(int pwmPin, int frequencyMs);
    
-    void init() override;
-
     /**
      * Start an unlimited pulsation from the current value on, in the current direction.
      */
-    void start(byte direction, byte stopOnLimit);
-    
-    /**
-     * Start dimming from the current value on, in the current direction.
-     *  stopOnLimit - An unlimited pulsation is starting.
-     */
-    void start(boolean stopOnLimit);
-    void startPulsate() { this->start(false); }
+    void startPulsate();
     
     /**
      * Hold current PWM value on the output.
      */
     void hold();
     
-   /**
-    * Stop PWM, and set output to LOW.
-    */
-   void off();
-   
     /**
-     * Stop PWM, and set output to pwm->upperLimit.
+     * Stop PWM, and set output to LOW.
      */
-    void on();
+    void off();
     
     /**
      * Make the dimming to change direction.
@@ -90,9 +79,18 @@ class Dimmer : public Task
      * Get the upper level of the pwm.
      */
     byte getUpperLimit();
+    
+    void setBottomLevel(byte value = 0) 
+    {
+      this->_bottomLevel = value;
+    }
+    void setTopLevel(byte value = 255) 
+    {
+      this->_topLevel = value;
+    }
    
     /**
-     * Current dim level PWM value. Note that the maximum is pwm->upperLimit.
+     * Current dim level PWM value. Note that the value should be between bottomLevel and topLevel.
      */
     float value;
     
@@ -112,9 +110,11 @@ class Dimmer : public Task
     byte stepCount;
      
   private:
-    SoftPwmTask* _pwm;
+    int _pwmPin;
     float _stepLevel;
     static void step(Task* me);
+    float _topLevel = 255;
+    float _bottomLevel = 0;
 };
 
 #endif
