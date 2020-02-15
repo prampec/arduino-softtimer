@@ -26,9 +26,6 @@ script:
   - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer5DelayRun1/SoftTimer5DelayRun1.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer5DelayRun2/SoftTimer5DelayRun2.ino
 #  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer5DelayRunEsp8266WebServer/SoftTimer5DelayRunEsp8266WebServer.ino
-  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer6Debouncer1/SoftTimer6Debouncer1.ino
-#  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer6Debouncer2/SoftTimer6Debouncer2.ino
-  - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer6Rotary/SoftTimer6Rotary.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer7Heartbeat/SoftTimer7Heartbeat.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer8Dimmer/SoftTimer8Dimmer.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/SoftTimer9FrequencyTask/SoftTimer9FrequencyTask.ino

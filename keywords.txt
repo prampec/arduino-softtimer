@@ -6,8 +6,6 @@ BlinkTask	KEYWORD1
 start	KEYWORD2
 stop	KEYWORD2
 
-Debouncer	KEYWORD1
-
 SoftPwmTask	KEYWORD1
 analogWrite	KEYWORD2
 
@@ -35,6 +33,3 @@ getUpperLimit	KEYWORD2
 
 FrequencyTask	KEYWORD1
 setFrequency	KEYWORD2
-
-Rotary	KEYWORD1
-pciHandleChange	KEYWORD2
