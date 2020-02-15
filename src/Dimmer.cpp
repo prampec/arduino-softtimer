@@ -43,7 +43,7 @@ void Dimmer::init()
   Task::init();
 }
 
-void Dimmer::start(boolean stopOnLimit) {
+void Dimmer::start(bool stopOnLimit) {
   this->stopOnLimit = stopOnLimit;
   SoftTimer.add(this->_pwm);
   SoftTimer.add(this);
@@ -86,7 +86,7 @@ void Dimmer::step(Task* task)
 {
   Dimmer* dimmer = (Dimmer*)task;
   
-  boolean isOnLimit = false;
+  bool isOnLimit = false;
   
   dimmer->value += dimmer->direction * dimmer->_stepLevel;
   if((dimmer->direction < 0) && (dimmer->value < 0)) {

@@ -81,7 +81,7 @@ void HardDimmer::step(Task* task)
 {
   HardDimmer* dimmer = (HardDimmer*)task;
   
-  boolean isOnLimit = false;
+  bool isOnLimit = false;
   
   dimmer->value += dimmer->direction * dimmer->_stepLevel;
   if((dimmer->direction < 0) && (dimmer->value < dimmer->_bottomLevel)) {

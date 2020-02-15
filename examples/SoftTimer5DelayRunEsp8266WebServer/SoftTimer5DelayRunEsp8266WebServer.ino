@@ -9,7 +9,7 @@ const char* ssid = "***";
 const char* password = "***";
 
 void myLoop(Task* me);
-boolean turnOff(Task* me);
+bool turnOff(Task* me);
 
 Task loopTask(0, myLoop);
 DelayRun turnOffTask(1000, turnOff);
@@ -67,7 +67,7 @@ void myLoop(Task* me) {
   server.handleClient();
 }
 
-boolean turnOff(Task* me)
+bool turnOff(Task* me)
 {
   digitalWrite(led, HIGH);
 }

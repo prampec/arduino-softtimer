@@ -31,7 +31,7 @@
 #define STATE_STARTING 0
 #define STATE_ON_DELAY 1
 
-DelayRun::DelayRun(unsigned long delayMs, boolean (*callback)(Task* task), DelayRun* followedBy)
+DelayRun::DelayRun(unsigned long delayMs, bool (*callback)(Task* task), DelayRun* followedBy)
     : Task(delayMs, &(DelayRun::step)) {
   this->delayMs = delayMs;
   this->_callback = callback;
@@ -55,7 +55,7 @@ void DelayRun::step(Task* task) {
     // -- Remove me from Timer Manager.
     SoftTimer.remove(dr);
 
-    boolean retVal;
+    bool retVal;
     if(dr->_callback != NULL) {
       retVal = dr->_callback(dr);
     } else {

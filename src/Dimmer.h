@@ -58,7 +58,7 @@ class Dimmer : public Task
      * Start dimming from the current value on, in the current direction.
      *  stopOnLimit - An unlimited pulsation is starting.
      */
-    void start(boolean stopOnLimit);
+    void start(bool stopOnLimit);
     void startPulsate() { this->start(false); }
     
     /**
@@ -99,7 +99,7 @@ class Dimmer : public Task
     /**
      * Stop if zero, or pwm->upperLimit is reached.
      */
-    boolean stopOnLimit;
+    bool stopOnLimit;
      
     /**
      * Can be one of DIMMER_DIRECTION_HIGH or DIMMER_DIRECTION_LOW.

@@ -47,7 +47,7 @@ class DelayRun : public Task
      *  followedBy - If the followedBy was specified, than it will be started when this was finished.
      *   Starting the followedBy can be denied by returning FALSE in the callback.
      */
-    DelayRun(unsigned long delayMs, boolean (*callback)(Task* task), DelayRun* followedBy = NULL);
+    DelayRun(unsigned long delayMs, bool (*callback)(Task* task), DelayRun* followedBy = NULL);
 
     /**
       * Register the task, and start waiting for the delayMs to pass.
@@ -66,7 +66,7 @@ class DelayRun : public Task
     DelayRun* followedBy;
 
   private:
-    boolean (*_callback)(Task* task);
+    bool (*_callback)(Task* task);
     static void step(Task* me);
 
     byte _state;

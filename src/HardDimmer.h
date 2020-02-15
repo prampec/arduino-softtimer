@@ -97,7 +97,7 @@ class HardDimmer : public Task
     /**
      * Stop if zero, or pwm->upperLimit is reached.
      */
-    boolean stopOnLimit;
+    bool stopOnLimit;
      
     /**
      * Can be one of DIMMER_DIRECTION_HIGH or DIMMER_DIRECTION_LOW.

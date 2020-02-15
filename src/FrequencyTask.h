@@ -52,7 +52,7 @@ class FrequencyTask : public Task
     
   private:
     int _outPin;
-    boolean _stateOn;
+    bool _stateOn;
 
 #ifdef SOFTTIMER_DIRECT_PORT_WRITE
     uint8_t _bitMask;

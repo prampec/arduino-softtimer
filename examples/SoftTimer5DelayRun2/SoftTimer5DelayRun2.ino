@@ -9,7 +9,7 @@
 // -- Define method signatures.
 void onPinChanged();
 // -- Define method signatures.
-boolean turnOff(Task* task);
+bool turnOff(Task* task);
 
 Debouncer debouncer(INPUT_PIN, MODE_CLOSE_ON_PUSH, onPinChanged, NULL);
 // -- Runs after 2 seconds
@@ -28,7 +28,7 @@ void onPinChanged() {
   offTask.startDelayed();
 }
 
-boolean turnOff(Task* task) {
+bool turnOff(Task* task) {
   Serial.println("Delay elapsed");
   digitalWrite(OUTPUT_PIN, LOW);
 }

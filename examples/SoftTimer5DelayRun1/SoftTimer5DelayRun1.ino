@@ -4,8 +4,8 @@
 #define OUT_PIN 13
 
 // -- Define method signatures.
-boolean turnOff(Task* task);
-boolean turnOn(Task* task);
+bool turnOff(Task* task);
+bool turnOn(Task* task);
 
 // -- This task will turn off the LED after 1 second.
 DelayRun offTask(1000, turnOff);
@@ -28,11 +28,11 @@ void setup() {
   
 }
 
-boolean turnOff(Task* task) {
+bool turnOff(Task* task) {
   digitalWrite(OUT_PIN, LOW);
   return true; // -- Return true to enable the "followedBy" task.
 }
-boolean turnOn(Task* task) {
+bool turnOn(Task* task) {
   digitalWrite(OUT_PIN, HIGH);
   return true; // -- Return true to enable the "followedBy" task.
 }
