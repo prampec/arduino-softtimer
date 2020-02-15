@@ -28,6 +28,7 @@
 #define BLINKTASK_H
 
 #include <Arduino.h>
+#include "SoftTimer.h"
 #include "Task.h"
 
 class BlinkTask : public Task
@@ -110,11 +111,13 @@ class BlinkTask : public Task
     byte _state;
 
     byte _outPin;
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
     uint8_t _bitMask;
-#ifndef ESP8266
+#ifndef _UINT32_T_DECLARED
     volatile uint8_t *_portRegister;
 #else
     volatile uint32_t *_portRegister;
+#endif
 #endif
 };
 

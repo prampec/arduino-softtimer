@@ -42,6 +42,7 @@ void BlinkTask::setupProperties(byte outPin, unsigned long onMs, unsigned long o
 
 void BlinkTask::init() {
   pinMode(this->_outPin, OUTPUT);
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
   this->_bitMask = digitalPinToBitMask(this->_outPin);
   this->_portRegister = portOutputRegister(digitalPinToPort(this->_outPin));
 
@@ -51,6 +52,7 @@ void BlinkTask::init() {
   } else {  
     *this->_portRegister |= this->_bitMask;
   }
+#endif
   Task::init();
 }
 
@@ -93,11 +95,15 @@ void BlinkTask::stepState(Task* task) {
   BlinkTask* bt = (BlinkTask*)task;
   if(bt->_state == BLINK_STATE_ON) {
     // -- Turn off.
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
     if(bt->onLevel == HIGH) {
       *bt->_portRegister &= ~bt->_bitMask;
     } else {  
       *bt->_portRegister |= bt->_bitMask;
     }
+#else
+    digitalWrite(bt->_outPin, !bt->onLevel);
+#endif
     bt->_counter += 1;
     bt->_state = BLINK_STATE_OFF;
     bt->setPeriodMs(bt->offMs);
@@ -105,11 +111,15 @@ void BlinkTask::stepState(Task* task) {
   else {
     // -- state == OFF or WAIT
     // -- Turn on.
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
     if(bt->onLevel == HIGH) {
       *bt->_portRegister |= bt->_bitMask;
     } else {  
       *bt->_portRegister &= ~bt->_bitMask;
     }
+#else
+    digitalWrite(bt->_outPin, bt->onLevel);
+#endif
     bt->_state = BLINK_STATE_ON;
     bt->setPeriodMs(bt->onMs);
   }

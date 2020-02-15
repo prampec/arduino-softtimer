@@ -27,9 +27,10 @@
 #ifndef FREQUENCYTASK_H
 #define FREQUENCYTASK_H
 
-#include "Task.h"
-#include "DelayRun.h"
 #include "Arduino.h"
+#include "Task.h"
+#include "SoftTimer.h"
+#include "DelayRun.h"
 
 class FrequencyTask : public Task
 {
@@ -52,11 +53,14 @@ class FrequencyTask : public Task
   private:
     int _outPin;
     boolean _stateOn;
+
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
     uint8_t _bitMask;
-#ifndef ESP8266
+#ifndef _UINT32_T_DECLARED
     volatile uint8_t *_portRegister;
 #else
     volatile uint32_t *_portRegister;
+#endif
 #endif
     static void step(Task* me);
 };

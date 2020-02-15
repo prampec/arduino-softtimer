@@ -41,6 +41,10 @@
 // -- STRICT_TIMING is disabled by default, as it might likely to cause starvation.
 //#define STRICT_TIMING
 
+#ifdef __AVR
+# define SOFTTIMER_DIRECT_PORT_WRITE
+#endif
+
 #include "Task.h"
 
 class SoftTimerClass

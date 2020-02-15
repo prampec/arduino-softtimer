@@ -35,8 +35,10 @@ SoftPwmTask::SoftPwmTask(int pin) : Task(0, &(SoftPwmTask::step))
   upperLimit = 255;
   this->periodMicros = 30;
 
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
   _bitMask = digitalPinToBitMask(pin);
   _portRegister = portOutputRegister(digitalPinToPort(pin));
+#endif
 }
 
 void SoftPwmTask::init() {
@@ -49,7 +51,11 @@ void SoftPwmTask::analogWrite(byte value) {
 }
 
 void SoftPwmTask::off() {
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
   *this->_portRegister &= ~this->_bitMask;
+#else
+  digitalWrite(this->_outPin, LOW);
+#endif
 }
 
 void SoftPwmTask::setFrequency(unsigned long freq) {
@@ -63,7 +69,11 @@ void SoftPwmTask::step(Task* task)
     // -- Reached the upper limit.
     if(spt->_value != 0) {
       // -- Set to HIGH.
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
       *spt->_portRegister |= spt->_bitMask;
+#else
+      digitalWrite(spt->_outPin, HIGH);
+#endif
     }
     spt->_counter = 0;
   }
@@ -71,7 +81,11 @@ void SoftPwmTask::step(Task* task)
     if(spt->_counter >= spt->_value) {
       // -- Reached the value level.
       // -- Set to LOW.
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
       *spt->_portRegister &= ~spt->_bitMask;
+#else
+      digitalWrite(spt->_outPin, LOW);
+#endif
     }
     spt->_counter++;
   }

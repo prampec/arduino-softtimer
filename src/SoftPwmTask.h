@@ -27,8 +27,9 @@
 #ifndef SOFTPWMTASK_H
 #define SOFTPWMTASK_H
 
-#include "Task.h"
 #include "Arduino.h"
+#include "Task.h"
+#include "SoftTimer.h"
 
 class SoftPwmTask : public Task
 {
@@ -67,12 +68,15 @@ class SoftPwmTask : public Task
     byte _counter;
     static void step(Task* me);
     
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
     uint8_t _bitMask;
-#ifndef ESP8266
+#ifndef _UINT32_T_DECLARED
     volatile uint8_t *_portRegister;
 #else
     volatile uint32_t *_portRegister;
 #endif
+#endif
+
 };
 
 #endif

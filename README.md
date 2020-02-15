@@ -8,7 +8,7 @@
 
 With SoftTimer you can reach a higher Arduino programing level, yet it is easy to use, and lightweight.
 
-You often face with the problem that you need to do multiply tasks in the same time. When using SoftTimer, programmer organizes the busines logic into Tasks, and the timer manager of SoftTimer takes care about the exact timing of the tasks.
+You often face with the problem that you need to do multiply tasks in the same time. When using SoftTimer, programmer organizes the business logic into Tasks, and the timer manager of SoftTimer takes care about the exact timing of the tasks.
 
 When you use SoftTimer you do not implement the "loop" function of the Arduino. All your code will run *event driven*, all processes running asynchronous, no more blocking code (like delay()) is to be used.
 

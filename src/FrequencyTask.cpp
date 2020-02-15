@@ -31,8 +31,10 @@ FrequencyTask::FrequencyTask(int outPin, float freq) : Task(0, &(FrequencyTask::
 {
   this->_outPin = outPin;
 
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
   _bitMask = digitalPinToBitMask(outPin);
   _portRegister = portOutputRegister(digitalPinToPort(outPin));
+#endif
   
   this->setFrequency(freq);
 }
@@ -53,11 +55,15 @@ void FrequencyTask::step(Task* task)
   FrequencyTask* ft = (FrequencyTask*)task;
   
   // -- Invert state.
+#ifdef SOFTTIMER_DIRECT_PORT_WRITE
   if(ft->_stateOn) {
-      *ft->_portRegister &= ~ft->_bitMask;
+    *ft->_portRegister &= ~ft->_bitMask;
   } else {
-      *ft->_portRegister |= ft->_bitMask;
+    *ft->_portRegister |= ft->_bitMask;
   }
+#else
+  digitalWrite(ft->_outPin, ft->_stateOn);
+#endif
   
   ft->_stateOn = !ft->_stateOn;
 }
