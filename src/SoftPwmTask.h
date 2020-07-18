@@ -68,10 +68,10 @@ class SoftPwmTask : public Task
     static void step(Task* me);
     
     uint8_t _bitMask;
-#ifndef ESP8266
-    volatile uint8_t *_portRegister;
-#else
+#if defined(ESP8266) || defined(ARDUINO_ARCH_SAMD)
     volatile uint32_t *_portRegister;
+#else
+    volatile uint8_t *_portRegister;
 #endif
 };
 
