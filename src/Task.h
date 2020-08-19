@@ -36,8 +36,8 @@ class Task
   public:
     /**
      * Construct a task with defining a period and a callback handler function.
-     *  periodMs - Call the task in every X milliseconds. Do not add values greater then 4,294,967, which is about 71 minutes!
-     *  callback - Is a static function reference, the function will be called each time. The callback function need to
+     *  periodMs - Call the task in every X milliseconds. Do not add values greater than 4,294,967, which is about 71 minutes!
+     *  callback - Is a static function reference, the function will be called each time. The callback function needs to
      * have one argument, which is the currently running task.
      */
     Task(unsigned long periodMs, void (*callback)(Task* me));
@@ -49,7 +49,7 @@ class Task
     
     /**
      * The timeslot in milliseconds the handler should be called.
-     * Do not add values greater then 4,294,967, which is about 71 minutes!
+     * Do not add values greater than 4,294,967, which is about 71 minutes!
      */
     void setPeriodMs(unsigned long periodMs);
 

@@ -2,13 +2,13 @@
 
 ## Description ##
 
-With SoftTimer you can reach a higher Arduino programing level, yet it is easy to use, and lightweight.
+With SoftTimer you can reach a higher Arduino programming level, yet it is easy to use, and lightweight.
 
-You often face with the problem that you need to do multiply tasks in the same time. When using SoftTimer, programmer organizes the busines logic into Tasks, and the timer manager of SoftTimer takes care about the exact timing of the tasks.
+You are often faced with the problem that you need to do multiple tasks in the same time. When using SoftTimer, programmer organizes the business logic into Tasks, and the timer manager of SoftTimer takes care about the exact timing of the tasks.
 
 When you use SoftTimer you do not implement the "loop" function of the Arduino. All your code will run *event driven*, all processes running asynchronous, no more blocking code (like delay()) is to be used.
 
-I also try to add some usefully tools to use SoftTimer out of the box (like blinker, pwm, debouncer, rotary etc.)
+I also try to add some useful tools to use SoftTimer out of the box (like blinker, pwm, debouncer, rotary etc.)
 
 You can install SoftTimer library directly from the Library Manager of the Arduino IDE. Follow this link for details: [How to Install a Library](https://www.arduino.cc/en/Guide/Libraries#toc3)
 

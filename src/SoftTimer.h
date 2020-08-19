@@ -35,8 +35,8 @@
 // -- ENABLE_LOOP_ITERATION is disabled by default.
 //#define ENABLE_LOOP_ITERATION
 
-// -- By default the next start of a task scheduled from the begining of the previous
-// -- execution. But executions might shift if an other task does not finish in time.
+// -- By default the next start of a task scheduled from the beginning of the previous
+// -- execution. But executions might shift if another task does not finish in time.
 // -- With STRICT_TIMING the next execution is scheduled at the expected time.
 // -- STRICT_TIMING is disabled by default, as it might likely to cause starvation.
 //#define STRICT_TIMING
