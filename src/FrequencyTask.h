@@ -35,8 +35,8 @@ class FrequencyTask : public Task
 {
   public:
     /**
-     * Initialize a frequency genearator on the pin with the given inital frequency value.
-     * Note, that you have to register the task to the timer managare to let it run.
+     * Initialize a frequency generator on the pin with the given initial frequency value.
+     * Note, that you have to register the task to the timer manager to let it run.
      *  outPin - The digital pin of the output.
      *  freq - Initial frequency.
      */

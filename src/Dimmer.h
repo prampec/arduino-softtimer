@@ -77,7 +77,7 @@ class Dimmer : public Task
     void on();
     
     /**
-     * Make the dimming to change direction.
+     * Make the dimming change direction.
      */
     void revertDirection();
    

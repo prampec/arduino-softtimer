@@ -1,7 +1,7 @@
 #include <SoftTimer.h>
 #include <SoftPwmTask.h>
 
-/* In this demonstration a pulsating is implemented. */
+/* In this demonstration a pulsating PWM output is implemented. */
 
 #define OUT_PIN  13
 

@@ -8,7 +8,7 @@
 #define OUT_PIN  13
 #define INPUT_PIN 3
 #define ON_OFF_FREQ_MS 1500
-#define TRESHOLD_MS 600
+#define THRESHOLD_MS 600
 
 // -- Define method signatures.
 void onPressed();
@@ -30,11 +30,11 @@ void onPressed() {
 }
 
 void onReleased(unsigned long pressTimespan) {
-  if(pressTimespan < TRESHOLD_MS) {
-    // -- It was just a fast clik, so stop on 0 or upperLimit.
+  if(pressTimespan < THRESHOLD_MS) {
+    // -- It was just a fast click, so stop on 0 or upperLimit.
     dimmer.stopOnLimit = true;
   } else {
-    // -- Stop immediatelly.
+    // -- Stop immediately.
     dimmer.hold();
   }
 }

@@ -50,7 +50,7 @@ class Debouncer : public PciListener, public Task
     /**
       * Create a debouncing task with the following parameters.
       *  pin - Checking pin for input.
-      *  pushMode - CLOSE_ON_PUSH / OPEN_ON_PUSH  - Your button are normally wired to be NO (Normally Openned), so USE CLOSE_ON_PUSH.
+      *  pushMode - CLOSE_ON_PUSH / OPEN_ON_PUSH  - Your button are normally wired to be NO (Normally Open), so USE CLOSE_ON_PUSH.
       *   But sometimes it is NC (Normally Closed), in this case use OPEN_ON_PUSH.
       *  onPressed() - A callback function pointer. This function is called when the bouncing button is really pushed. (Optional,
       *   pass NULL, if you do not want to use this feature.)

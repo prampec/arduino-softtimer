@@ -38,7 +38,7 @@
 
 /**
  * HardDimmer should be a drop in replacement for Dimmer,
- * expect for the constructor.
+ * except for the constructor.
  */
 class HardDimmer : public Task
 {

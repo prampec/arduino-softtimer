@@ -3,7 +3,7 @@
 
 #define LED_PIN 13
 
-// -- Creates an starts a visible indicator.
+// -- Creates and starts a visible indicator.
 Heartbeat heartbeat(LED_PIN);
 
 // -- Define method signature.
