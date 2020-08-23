@@ -27,6 +27,10 @@ Full code:
 ```
 #include <SoftTimer.h>
 
+// -- Define method signature.
+void turnOn(Task* me);
+void turnOff(Task* me);
+
 // -- taskOn will be launched on every 2 seconds.
 Task taskOn(2000, turnOn);
 // -- taskOff will be launched on every 1111 milliseconds.
