@@ -53,10 +53,10 @@ class FrequencyTask : public Task
     int _outPin;
     boolean _stateOn;
     uint8_t _bitMask;
-#ifndef ESP8266
-    volatile uint8_t *_portRegister;
-#else
+#if defined(ESP8266) || defined(ARDUINO_ARCH_SAMD)
     volatile uint32_t *_portRegister;
+#else
+    volatile uint8_t *_portRegister;
 #endif
     static void step(Task* me);
 };

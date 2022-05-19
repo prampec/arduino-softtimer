@@ -111,10 +111,10 @@ class BlinkTask : public Task
 
     byte _outPin;
     uint8_t _bitMask;
-#ifndef ESP8266
-    volatile uint8_t *_portRegister;
-#else
+#if defined(ESP8266) || defined(ARDUINO_ARCH_SAMD)
     volatile uint32_t *_portRegister;
+#else
+    volatile uint8_t *_portRegister;
 #endif
 };
 
